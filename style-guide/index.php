@@ -162,8 +162,9 @@
   
   <a id="specific-styles"></a>
   <div class="sg-pattern-styles">
-    <h1 class="sg-h1">Pattern Styles<small> - Design and mark-up patterns unique to your site.</small></h1>
-    <?php showMarkup('patterns'); ?>
+    <h1 class="sg-h1">Pattern Styles</h1>
+    <p>Will be added once the overall layout has been defined.</p>
+    <?php // showMarkup('patterns'); ?>
     </div><!--/.sg-pattern-styles-->
   </div><!--/.sg-body-->
 
