@@ -1,0 +1,25 @@
+@import "base/_variables";
+@import "mixins/_rowMachine";
+
+.donation-nav-tabs {
+	width: 100%;
+	
+	dd {
+		@include rowMachine(2, 1%);
+		margin-left: 0 !important;
+		
+		a {
+			font-family: "Open Sans", Arial, sans-serif;
+			font-size: 0.875em;
+			background: $very-light-grey;
+		}
+	}
+	
+	dd.active {
+		
+		a {
+			color: white;
+			background: $very-light-blue;
+		}
+	}
+}

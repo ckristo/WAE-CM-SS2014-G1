@@ -115,7 +115,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /** * Grey * **/
 /* line 36, ../sass/base/_styleguide.scss */
 .sg-color--anthrazit .sg-color-swatch {
-  background: #1a1a1a;
+  background: #333333;
 }
 
 /* line 40, ../sass/base/_styleguide.scss */
@@ -198,55 +198,57 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /** ******************************* **/
 /* line 12, ../sass/base/_base.scss */
 html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 
-/* line 16, ../sass/base/_base.scss */
+/* line 18, ../sass/base/_base.scss */
 body {
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.125em;
 }
 
-/* line 22, ../sass/base/_base.scss */
+/* line 24, ../sass/base/_base.scss */
 p {
   margin-bottom: 4px;
   font-size: 0.875em;
 }
 
-/* line 27, ../sass/base/_base.scss */
+/* line 29, ../sass/base/_base.scss */
 code {
   font-family: "Courier New", Verdana, sans-serif;
 }
 
-/* line 31, ../sass/base/_base.scss */
+/* line 33, ../sass/base/_base.scss */
 abbr {
   border-bottom: 1px dotted dimgrey;
 }
 
-/* line 35, ../sass/base/_base.scss */
+/* line 37, ../sass/base/_base.scss */
 b, strong {
   font-weight: bold;
 }
 
-/* line 39, ../sass/base/_base.scss */
+/* line 41, ../sass/base/_base.scss */
 em {
   font-weight: bold;
   font-style: italic;
 }
 
-/* line 44, ../sass/base/_base.scss */
+/* line 46, ../sass/base/_base.scss */
 i {
   font-style: italic;
 }
 
-/* line 48, ../sass/base/_base.scss */
+/* line 50, ../sass/base/_base.scss */
 cite {
   color: dimgrey;
   font-style: italic;
 }
 
-/* line 53, ../sass/base/_base.scss */
+/* line 55, ../sass/base/_base.scss */
 sup, sub {
   position: relative;
   height: 0;
@@ -255,66 +257,66 @@ sup, sub {
   line-height: 1;
 }
 
-/* line 61, ../sass/base/_base.scss */
+/* line 63, ../sass/base/_base.scss */
 sup {
   bottom: 0.25em;
 }
 
-/* line 65, ../sass/base/_base.scss */
+/* line 67, ../sass/base/_base.scss */
 sub {
   top: 0.25em;
 }
 
 /** * Headings * **/
-/* line 70, ../sass/base/_base.scss */
+/* line 72, ../sass/base/_base.scss */
 h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
 }
 
-/* line 74, ../sass/base/_base.scss */
+/* line 76, ../sass/base/_base.scss */
 h1 {
   font-size: 2em;
-  line-height: 1em;
-}
-
-/* line 75, ../sass/base/_base.scss */
-h2 {
-  font-size: 1.5em;
-  line-height: 1em;
-}
-
-/* line 76, ../sass/base/_base.scss */
-h3 {
-  font-size: 1.17em;
-  line-height: 1em;
+  line-height: 1.1em;
 }
 
 /* line 77, ../sass/base/_base.scss */
-h4 {
-  font-size: 1em;
-  line-height: 1em;
+h2 {
+  font-size: 1.5em;
+  line-height: 1.1em;
 }
 
 /* line 78, ../sass/base/_base.scss */
-h5 {
-  font-size: 0.83em;
-  line-height: 1em;
+h3 {
+  font-size: 1.17em;
+  line-height: 1.1em;
 }
 
 /* line 79, ../sass/base/_base.scss */
+h4 {
+  font-size: 1em;
+  line-height: 1.1em;
+}
+
+/* line 80, ../sass/base/_base.scss */
+h5 {
+  font-size: 0.83em;
+  line-height: 1.1em;
+}
+
+/* line 81, ../sass/base/_base.scss */
 h6 {
   font-size: 0.75em;
-  line-height: 1em;
+  line-height: 1.1em;
 }
 
 /** * Address * **/
-/* line 82, ../sass/base/_base.scss */
+/* line 84, ../sass/base/_base.scss */
 address {
   font-size: 0.875em;
 }
 
 /** * Blockquote * **/
-/* line 87, ../sass/base/_base.scss */
+/* line 89, ../sass/base/_base.scss */
 blockquote {
   margin: 10px;
   color: dimgrey;
@@ -323,7 +325,7 @@ blockquote {
   quotes: "\201C" "\201D" "\2018" "\2019";
 }
 
-/* line 95, ../sass/base/_base.scss */
+/* line 97, ../sass/base/_base.scss */
 blockquote:before, blockquote:after {
   color: #dddddd;
   font-size: 4em;
@@ -332,41 +334,41 @@ blockquote:before, blockquote:after {
   vertical-align: -0.4em;
 }
 
-/* line 103, ../sass/base/_base.scss */
+/* line 105, ../sass/base/_base.scss */
 blockquote:before {
   content: open-quote;
 }
 
-/* line 107, ../sass/base/_base.scss */
+/* line 109, ../sass/base/_base.scss */
 blockquote:after {
   content: close-quote;
 }
 
-/* line 111, ../sass/base/_base.scss */
+/* line 113, ../sass/base/_base.scss */
 blockquote p {
   display: inline;
 }
 
 /** * Small text * **/
-/* line 116, ../sass/base/_base.scss */
+/* line 118, ../sass/base/_base.scss */
 small {
   font-size: 0.75em;
 }
 
 /** * Figures * **/
-/* line 121, ../sass/base/_base.scss */
+/* line 123, ../sass/base/_base.scss */
 figcaption {
   margin: 2px 0 12px 0;
   font-size: 0.75em;
   font-style: italic;
 }
-/* line 126, ../sass/base/_base.scss */
+/* line 128, ../sass/base/_base.scss */
 figcaption h4 {
   text-decoration: underline;
 }
 
 /** * HR / Separator * **/
-/* line 132, ../sass/base/_base.scss */
+/* line 134, ../sass/base/_base.scss */
 hr {
   height: 1px;
   color: #dddddd;
@@ -377,13 +379,13 @@ hr {
 /** * Lists * **/
 /** ********* **/
 /** * General list styles * **/
-/* line 143, ../sass/base/_base.scss */
+/* line 145, ../sass/base/_base.scss */
 ul, ol {
   margin: 10px 0 10px 1.25em;
   font-size: 0.875em;
   list-style-position: inside;
 }
-/* line 148, ../sass/base/_base.scss */
+/* line 150, ../sass/base/_base.scss */
 ul li ul, ul li ol, ol li ul, ol li ol {
   font-size: 1em;
   margin-top: 0;
@@ -391,36 +393,37 @@ ul li ul, ul li ol, ol li ul, ol li ol {
 }
 
 /** * Definition lists * **/
-/* line 157, ../sass/base/_base.scss */
+/* line 159, ../sass/base/_base.scss */
 dl dt {
   margin-top: 10px;
+  font-weight: normal;
   font-style: italic;
 }
-/* line 162, ../sass/base/_base.scss */
+/* line 165, ../sass/base/_base.scss */
 dl dt:first-child {
   margin-top: 0;
 }
-/* line 166, ../sass/base/_base.scss */
+/* line 169, ../sass/base/_base.scss */
 dl dd {
   margin: 2px 0 2px 1.25em;
 }
 
 /** * Ordered lists * **/
-/* line 172, ../sass/base/_base.scss */
+/* line 175, ../sass/base/_base.scss */
 ol {
   list-style-type: decimal;
 }
 
 /** * Unordered lists * **/
-/* line 177, ../sass/base/_base.scss */
+/* line 180, ../sass/base/_base.scss */
 ul {
   list-style-type: disc;
 }
-/* line 180, ../sass/base/_base.scss */
+/* line 183, ../sass/base/_base.scss */
 ul li ul {
   list-style-type: circle;
 }
-/* line 183, ../sass/base/_base.scss */
+/* line 186, ../sass/base/_base.scss */
 ul li ul li ul {
   list-style-type: square;
 }
@@ -428,7 +431,7 @@ ul li ul li ul {
 /** ********** **/
 /** * Images * **/
 /** ********** **/
-/* line 192, ../sass/base/_base.scss */
+/* line 195, ../sass/base/_base.scss */
 img {
   color: dimgrey;
   font-style: italic;
@@ -437,44 +440,44 @@ img {
 /** ********** **/
 /** * Tables * **/
 /** ********** **/
-/* line 200, ../sass/base/_base.scss */
+/* line 203, ../sass/base/_base.scss */
 table {
   border: 1px solid #dddddd;
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
 }
-/* line 206, ../sass/base/_base.scss */
+/* line 209, ../sass/base/_base.scss */
 table caption {
   margin: 5px 0;
   color: dimgrey;
   font-style: italic;
 }
-/* line 212, ../sass/base/_base.scss */
+/* line 215, ../sass/base/_base.scss */
 table thead {
   background: none repeat scroll 0 0 #dddddd;
-  color: #1a1a1a;
+  color: #333333;
   text-align: left;
   vertical-align: bottom;
 }
-/* line 220, ../sass/base/_base.scss */
+/* line 223, ../sass/base/_base.scss */
 table tbody tr:nth-child(even) {
   background: #eeeeee;
 }
-/* line 224, ../sass/base/_base.scss */
+/* line 227, ../sass/base/_base.scss */
 table tbody tr:hover {
   color: white;
   background: #65a6d1;
 }
-/* line 231, ../sass/base/_base.scss */
+/* line 234, ../sass/base/_base.scss */
 table tfoot tr {
   border-top: 1px solid #dddddd;
 }
-/* line 236, ../sass/base/_base.scss */
+/* line 239, ../sass/base/_base.scss */
 table td:first-child, table th:first-child {
   border-left-width: 0;
 }
-/* line 240, ../sass/base/_base.scss */
+/* line 243, ../sass/base/_base.scss */
 table th, table td {
   padding: 0.5em 1em;
   border-left: 1px solid #dddddd;
@@ -483,7 +486,7 @@ table th, table td {
   margin: 0;
   overflow: visible;
 }
-/* line 249, ../sass/base/_base.scss */
+/* line 252, ../sass/base/_base.scss */
 table th {
   font-weight: bold;
 }
@@ -491,12 +494,12 @@ table th {
 /** ********* **/
 /** * Links * **/
 /** ********* **/
-/* line 257, ../sass/base/_base.scss */
+/* line 260, ../sass/base/_base.scss */
 a {
   color: #3e97d1;
 }
 
-/* line 261, ../sass/base/_base.scss */
+/* line 264, ../sass/base/_base.scss */
 a:hover {
   color: #0a67a3;
 }
@@ -508,6 +511,62 @@ a:hover {
 /** ********************* **/
 /** * Color assignments * **/
 /** ********************* **/
+/* line 3, ../sass/core/_layout.scss */
+#container {
+  min-height: 100%;
+  margin-bottom: -150px;
+  /* Footer height */
+  padding-bottom: 80px;
+}
+
+/* line 9, ../sass/core/_layout.scss */
+#container:after {
+  display: block;
+  content: "";
+}
+
+/* line 14, ../sass/core/_layout.scss */
+footer, #container:after {
+  height: 150px;
+}
+
+/* line 18, ../sass/core/_layout.scss */
+footer {
+  padding: 20px;
+  color: #dddddd;
+  background: #333333;
+}
+
+/* line 24, ../sass/core/_layout.scss */
+.hero-unit {
+  width: 100%;
+  margin: 40px 0;
+  border-bottom: 1px solid #333333;
+}
+/* line 29, ../sass/core/_layout.scss */
+.hero-unit h1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* line 35, ../sass/core/_layout.scss */
+.red {
+  color: #ff3100;
+}
+
+/* line 39, ../sass/core/_layout.scss */
+.green {
+  color: #00b454;
+}
+
+/* line 43, ../sass/core/_layout.scss */
+.gap {
+  display: block;
+  width: 100%;
+  height: 25px;
+  visibility: hidden;
+}
+
 /* Contains the general layout styles for the website */
 /** ********** **/
 /** * Colors * **/
@@ -558,61 +617,63 @@ form {
 }
 /* line 6, ../sass/components/_buttons.scss */
 form input[type="button"], form input[type="submit"], form input[type="reset"], form button {
-  margin: 2px 0;
+  margin: 4px 0;
   padding: 10px;
   color: white;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1em;
   text-align: center;
   border: none;
 }
-/* line 14, ../sass/components/_buttons.scss */
+/* line 16, ../sass/components/_buttons.scss */
 form input[type="button"]:hover, form input[type="submit"]:hover, form input[type="reset"]:hover, form button:hover {
   cursor: pointer;
 }
-/* line 18, ../sass/components/_buttons.scss */
+/* line 20, ../sass/components/_buttons.scss */
 form input[type="button"]:active, form input[type="submit"]:active, form input[type="reset"]:active, form button:active {
   position: relative;
   top: -1px;
 }
-/* line 23, ../sass/components/_buttons.scss */
+/* line 25, ../sass/components/_buttons.scss */
 form input[type="button"]:disabled, form input[type="submit"]:disabled, form input[type="reset"]:disabled, form button:disabled {
   color: dimgrey !important;
   background: #dddddd !important;
   cursor: not-allowed !important;
 }
-/* line 32, ../sass/components/_buttons.scss */
+/* line 34, ../sass/components/_buttons.scss */
 form input[type="button"], form button {
   background: #65a6d1;
 }
-/* line 36, ../sass/components/_buttons.scss */
+/* line 38, ../sass/components/_buttons.scss */
 form input[type="button"]:hover, form button:hover {
   background: #3e97d1;
 }
-/* line 40, ../sass/components/_buttons.scss */
+/* line 42, ../sass/components/_buttons.scss */
 form input[type="button"]:active, form button:active {
   background: #65a6d1;
 }
-/* line 47, ../sass/components/_buttons.scss */
+/* line 49, ../sass/components/_buttons.scss */
 form input[type="submit"], form button[type="submit"] {
-  color: #1a1a1a;
+  color: #333333;
   background: #62da9a;
 }
-/* line 52, ../sass/components/_buttons.scss */
+/* line 54, ../sass/components/_buttons.scss */
 form input[type="submit"]:hover, form button[type="submit"]:hover {
   background: #36da82;
 }
-/* line 56, ../sass/components/_buttons.scss */
+/* line 58, ../sass/components/_buttons.scss */
 form input[type="submit"]:active, form button[type="submit"]:active {
   background: #62da9a;
 }
-/* line 63, ../sass/components/_buttons.scss */
+/* line 65, ../sass/components/_buttons.scss */
 form input[type="reset"], form button[type="reset"] {
   background: #ff8e73;
 }
-/* line 67, ../sass/components/_buttons.scss */
+/* line 69, ../sass/components/_buttons.scss */
 form input[type="reset"]:hover, form button[type="reset"]:hover {
   background: #ff6440;
 }
-/* line 71, ../sass/components/_buttons.scss */
+/* line 73, ../sass/components/_buttons.scss */
 form input[type="reset"]:active, form button[type="reset"]:active {
   background: #ff8e73;
 }
@@ -620,39 +681,50 @@ form input[type="reset"]:active, form button[type="reset"]:active {
 form legend {
   color: dimgrey;
   font-size: 0.875em;
+  font-weight: normal;
   font-style: italic;
 }
-/* line 21, ../sass/core/_forms.scss */
+/* line 22, ../sass/core/_forms.scss */
 form label {
   display: block;
   font-size: 0.75em;
 }
-/* line 29, ../sass/core/_forms.scss */
+/* line 30, ../sass/core/_forms.scss */
 form fieldset {
   margin: 10px 0;
 }
-/* line 38, ../sass/core/_forms.scss */
-form input, form select, form textarea {
+/* line 39, ../sass/core/_forms.scss */
+form input, form select {
   margin-bottom: 10px;
-  padding: 4px;
   border: 1px solid dimgrey;
 }
 /* line 44, ../sass/core/_forms.scss */
+form input, form select {
+  max-width: 200px;
+}
+/* line 48, ../sass/core/_forms.scss */
+form input, form textarea {
+  padding: 4px;
+}
+/* line 52, ../sass/core/_forms.scss */
 form input[readonly="readonly"], form input[readonly], form textarea[readonly="readonly"], form textarea[readonly] {
   color: dimgrey;
   background: #eeeeee;
 }
-/* line 54, ../sass/core/_forms.scss */
+/* line 62, ../sass/core/_forms.scss */
 form textarea {
+  max-width: 350px;
+  min-height: 150px;
+  margin-bottom: 10px;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 0.875em;
 }
-/* line 60, ../sass/core/_forms.scss */
+/* line 71, ../sass/core/_forms.scss */
 form input[type="radio"], form input[type="checkbox"] {
   position: relative;
   top: 2px;
 }
-/* line 66, ../sass/core/_forms.scss */
+/* line 77, ../sass/core/_forms.scss */
 form input[type="range"] {
   margin-left: 0;
 }
@@ -669,25 +741,27 @@ form input[type="range"] {
 /** ************************* **/
 /* line 6, ../sass/components/_buttons.scss */
 input[type="button"], input[type="submit"], input[type="reset"], button {
-  margin: 2px 0;
+  margin: 4px 0;
   padding: 10px;
   color: white;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1em;
   text-align: center;
   border: none;
 }
 
-/* line 14, ../sass/components/_buttons.scss */
+/* line 16, ../sass/components/_buttons.scss */
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
   cursor: pointer;
 }
 
-/* line 18, ../sass/components/_buttons.scss */
+/* line 20, ../sass/components/_buttons.scss */
 input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active, button:active {
   position: relative;
   top: -1px;
 }
 
-/* line 23, ../sass/components/_buttons.scss */
+/* line 25, ../sass/components/_buttons.scss */
 input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled, button:disabled {
   color: dimgrey !important;
   background: #dddddd !important;
@@ -697,17 +771,17 @@ input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"
 /** ******************* **/
 /** * Standard button * **/
 /** ******************* **/
-/* line 32, ../sass/components/_buttons.scss */
+/* line 34, ../sass/components/_buttons.scss */
 input[type="button"], button {
   background: #65a6d1;
 }
 
-/* line 36, ../sass/components/_buttons.scss */
+/* line 38, ../sass/components/_buttons.scss */
 input[type="button"]:hover, button:hover {
   background: #3e97d1;
 }
 
-/* line 40, ../sass/components/_buttons.scss */
+/* line 42, ../sass/components/_buttons.scss */
 input[type="button"]:active, button:active {
   background: #65a6d1;
 }
@@ -715,18 +789,18 @@ input[type="button"]:active, button:active {
 /** ***************** **/
 /** * Submit button * **/
 /** ***************** **/
-/* line 47, ../sass/components/_buttons.scss */
+/* line 49, ../sass/components/_buttons.scss */
 input[type="submit"], button[type="submit"] {
-  color: #1a1a1a;
+  color: #333333;
   background: #62da9a;
 }
 
-/* line 52, ../sass/components/_buttons.scss */
+/* line 54, ../sass/components/_buttons.scss */
 input[type="submit"]:hover, button[type="submit"]:hover {
   background: #36da82;
 }
 
-/* line 56, ../sass/components/_buttons.scss */
+/* line 58, ../sass/components/_buttons.scss */
 input[type="submit"]:active, button[type="submit"]:active {
   background: #62da9a;
 }
@@ -734,19 +808,142 @@ input[type="submit"]:active, button[type="submit"]:active {
 /** **************** **/
 /** * Reset button * **/
 /** **************** **/
-/* line 63, ../sass/components/_buttons.scss */
+/* line 65, ../sass/components/_buttons.scss */
 input[type="reset"], button[type="reset"] {
   background: #ff8e73;
 }
 
-/* line 67, ../sass/components/_buttons.scss */
+/* line 69, ../sass/components/_buttons.scss */
 input[type="reset"]:hover, button[type="reset"]:hover {
   background: #ff6440;
 }
 
-/* line 71, ../sass/components/_buttons.scss */
+/* line 73, ../sass/components/_buttons.scss */
 input[type="reset"]:active, button[type="reset"]:active {
   background: #ff8e73;
 }
 
 /* Buttons */
+/** ********** **/
+/** * Colors * **/
+/** ********** **/
+/** ********************* **/
+/** * Color assignments * **/
+/** ********************* **/
+/* line 4, ../sass/components/_nav.scss */
+nav {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+  background: #333333;
+  line-height: 40px;
+}
+/* line 11, ../sass/components/_nav.scss */
+nav a {
+  width: 19.2%;
+  display: block;
+  max-width: 150px;
+  color: #dddddd;
+  font-size: 0.875em;
+  text-align: center;
+  text-decoration: none;
+  float: left;
+}
+/* line 3, ../sass/mixins/_rowMachine.scss */
+nav a:nth-child(n) {
+  margin-bottom: 1%;
+  margin-right: 1%;
+}
+/* line 7, ../sass/mixins/_rowMachine.scss */
+nav a:nth-child(5n) {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+/* line 22, ../sass/components/_nav.scss */
+nav a:hover {
+  color: #dddddd;
+  background: #2a2a2a;
+}
+
+/* line 28, ../sass/components/_nav.scss */
+nav.footer-nav {
+  height: 100%;
+  margin-bottom: 0;
+}
+/* line 32, ../sass/components/_nav.scss */
+nav.footer-nav a {
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 0.75em;
+  text-align: left;
+  float: none;
+}
+/* line 41, ../sass/components/_nav.scss */
+nav.footer-nav a:hover {
+  color: #eeeeee;
+  text-decoration: underline;
+  background: #333333;
+}
+
+/* Navigation */
+/** ********** **/
+/** * Colors * **/
+/** ********** **/
+/** ********************* **/
+/** * Color assignments * **/
+/** ********************* **/
+/* line 3, ../sass/components/_demandbox.scss */
+.demandbox {
+  margin: 10px 0;
+  border-bottom: 1px solid dimgrey;
+}
+/* line 7, ../sass/components/_demandbox.scss */
+.demandbox .demandbox-title {
+  font-size: 0.875em;
+}
+/* line 14, ../sass/components/_demandbox.scss */
+.demandbox a {
+  font-size: 0.75em;
+  float: right;
+}
+
+/* Box (widget) that shows the current high and low demand on certain goods */
+/** ********** **/
+/** * Colors * **/
+/** ********** **/
+/** ********************* **/
+/** * Color assignments * **/
+/** ********************* **/
+/* line 4, ../sass/components/_tabs.scss */
+.donation-nav-tabs {
+  width: 100%;
+}
+/* line 7, ../sass/components/_tabs.scss */
+.donation-nav-tabs dd {
+  width: 49.5%;
+  margin-left: 0 !important;
+}
+/* line 3, ../sass/mixins/_rowMachine.scss */
+.donation-nav-tabs dd:nth-child(n) {
+  margin-bottom: 1%;
+  margin-right: 1%;
+}
+/* line 7, ../sass/mixins/_rowMachine.scss */
+.donation-nav-tabs dd:nth-child(2n) {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+/* line 11, ../sass/components/_tabs.scss */
+.donation-nav-tabs dd a {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.875em;
+  background: #eeeeee;
+}
+/* line 20, ../sass/components/_tabs.scss */
+.donation-nav-tabs dd.active a {
+  color: white;
+  background: #65a6d1;
+}
+
+/* Overrides for the basic foundation tabs */

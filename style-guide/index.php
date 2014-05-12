@@ -77,6 +77,7 @@
   
   <!-- Replace below stylesheet with your own stylesheet -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/foundation.min.css">
   <link rel="stylesheet" href="css/screen.css">
 </head>
 <body>
@@ -131,7 +132,7 @@
         <div class="sg-color sg-color--very-light-blue"><span class="sg-color-swatch"><span class="sg-animated">#65a6d1</span></span></div>
         
         <h3>Grey (additional layout colors, disabled elements)</h3>
-        <div class="sg-color sg-color--anthrazit"><span class="sg-color-swatch"><span class="sg-animated">#1a1a1a</span></span></div>
+        <div class="sg-color sg-color--anthrazit"><span class="sg-color-swatch"><span class="sg-animated">#333333</span></span></div>
         <div class="sg-color sg-color--grey"><span class="sg-color-swatch"><span class="sg-animated">#696969</span></span></div>
         <div class="sg-color sg-color--semi-light-grey"><span class="sg-color-swatch"><span class="sg-animated">#cccccc</span></span></div>
         <div class="sg-color sg-color--light-grey"><span class="sg-color-swatch"><span class="sg-animated">#dddddd</span></span></div>
@@ -163,8 +164,8 @@
   <a id="specific-styles"></a>
   <div class="sg-pattern-styles">
     <h1 class="sg-h1">Pattern Styles</h1>
-    <p>Will be added once the overall layout has been defined.</p>
-    <?php // showMarkup('patterns'); ?>
+    <p>Further components will be added once the overall layout has been defined.</p>
+    <?php showMarkup('patterns'); ?>
     </div><!--/.sg-pattern-styles-->
   </div><!--/.sg-body-->
 

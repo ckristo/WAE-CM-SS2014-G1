@@ -1,0 +1,18 @@
+@import "base/_variables";
+
+.demandbox {
+	margin: 10px 0;
+	border-bottom: 1px solid $grey;
+	
+	.demandbox-title {
+		font-size: 0.875em;
+	}
+	
+	.demandbox-list {
+	}
+	
+	a {
+		font-size: 0.75em;
+		float: right;
+	}
+}

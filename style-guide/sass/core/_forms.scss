@@ -12,6 +12,7 @@ form {
 	legend {
 		color: $grey;
 		font-size: 0.875em;
+		font-weight: normal;
 		font-style: italic;
 	}
 	
@@ -35,10 +36,17 @@ form {
 	/** ********** **/
 	
 	/** * General field styles * **/
-	input, select, textarea {
+	input, select {
 		margin-bottom: 10px;
-		padding: 4px;
 		border: 1px solid $grey;
+	}
+	
+	input, select {
+		max-width: 200px;
+	}
+	
+	input, textarea {
+		padding: 4px;
 	}
 	
 	input[readonly="readonly"], input[readonly], textarea[readonly="readonly"], textarea[readonly] {
@@ -52,6 +60,9 @@ form {
 	
 	/** * Textarea * **/
 	textarea {
+		max-width: 350px;
+		min-height: 150px;
+		margin-bottom: 10px;
 		font-family: "Open Sans", Arial, sans-serif;
 		font-size: 0.875em;
 	}

@@ -4,9 +4,11 @@
 /** * General button styles * **/
 /** ************************* **/
 input[type="button"], input[type="submit"], input[type="reset"], button {
-	margin: 2px 0;
+	margin: 4px 0;
 	padding: 10px;
 	color: white;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 1em;
 	text-align: center;
 	border: none;
 }

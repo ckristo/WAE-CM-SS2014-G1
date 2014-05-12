@@ -1,1 +1,48 @@
 @import "base/_variables";
+
+#container {
+	min-height: 100%;
+	margin-bottom: -150px; /* Footer height */
+	padding-bottom: 80px;
+}
+
+#container:after {
+	display: block;
+	content: "";
+}
+
+footer, #container:after {
+	height: 150px;
+}
+
+footer {
+	padding: 20px;
+	color: $light-grey;
+	background: $anthrazit;
+}
+
+.hero-unit {
+	width: 100%;
+	margin: 40px 0;
+	border-bottom: 1px solid $anthrazit;
+	
+	h1 {
+		text-align: center;
+		font-weight: bold;
+	}
+}
+
+.red {
+	color: $red;
+}
+
+.green {
+	color: $green;
+}
+
+.gap {
+	display: block;
+	width: 100%;
+	height: 25px;
+	visibility: hidden;
+}

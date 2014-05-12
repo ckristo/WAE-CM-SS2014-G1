@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Spendensammler - Sample Static Site</title>
+		
+		<meta name="viewport" content="width=device-width">
+		
+		<!-- * Stylesheets * -->
+			<!-- * Fonts * -->
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+			<!-- * /Fonts * -->
+			
+			<!-- * Foundation * -->
+			<link rel="stylesheet" href="css/foundation.min.css">
+			<!-- * /Foundation * -->
+			
+			<!-- * Spendensammler * -->
+			<link rel="stylesheet" href="css/screen.css">
+			<!-- * /Spendensammler * -->
+		<!-- * /Stylesheets * -->
+	</head>
+	<body>
+		<div id="container">
+			<nav id="top-nav" class="clearfix">
+				<a href="#" title="Start">Start</a>
+				<a href="#" title="Suche">Suche</a>
+				<a href="#" title="Biete">Biete</a>
+				<a href="#" title="FAQ">FAQ</a>
+				<a href="#" title="Impressum">Impressum</a>
+			</nav> <!-- /#top-nav -->
+			
+			<div class="row">
+				<div class="large-12 columns">
+					<div class="hero-unit">
+						<h1>Spendensammler</h1>
+					</div>
+				</div> <!-- /.columns -->
+			</div> <!-- /.row -->
+			
+			<div class="row">
+				<div class="large-9 columns">
+					<dl class="donation-nav-tabs tabs" data-tab>
+						<dd class="active">
+							<a href="#individual">Privatperson</a>
+						</dd>
+						<dd>
+							<a href="#company">Firma</a>
+						</dd>
+					</dl> <!-- /.tabs -->
+					<div class="tabs-content">
+						<div id="individual" class="content active">
+							<form>
+								<fieldset>
+									<legend>Person</legend>
+									<div class="row">
+										<div class="large-12 columns">
+											<label>Name:</label>
+											<input type="text" name="name" tabindex="1">
+										</div> <!-- /.columns -->
+									</div> <!-- /.row -->
+										
+									<div class="row">
+										<div class="large-6 columns">
+											<label>Telefon:</label>
+											<input type="text" name="phone" tabindex="2">
+										</div> <!-- /.columns -->
+										
+										<div class="large-6 columns">
+											<label>E-Mail:</label>
+											<input type="email" name="email" tabindex="3">
+										</div> <!-- /.columns -->
+									</div> <!-- /.row -->
+									
+									<div class="row">
+										<div class="large-12 columns">
+											<label>Stra&szlig;e:</label>
+											<input type="text" name="street" tabindex="4">
+										</div> <!-- /.columns -->
+									</div> <!-- /.row -->
+									
+									<div class="row">
+										<div class="large-6 columns">
+											<label>PLZ:</label>
+											<input type="text" name="zip" tabindex="5">
+										</div> <!-- /.columns -->
+										
+										<div class="large-6 columns">
+											<label>Ort:</label>
+											<input type="text" name="city" tabindex="6">
+										</div> <!-- /.columns -->
+									</div> <!-- /.row -->
+								</fieldset>
+								
+								<fieldset>
+									<legend>Spende</legend>
+									<div class="row">
+										<div class="large-12 columns">
+											<label>Titel:</label>
+											<input type="text" name="title" tabindex="7">
+										</div> <!-- /.columns -->
+									</div> <!-- /.row -->
+									
+									<div class="row">
+										<div class="large-12 columns">
+											<label>Beschreibung:</label>
+											<textarea name="name" tabindex="8"></textarea>
+										</div> <!-- /.columns -->
+									</div> <!-- /.row -->
+									<p><input type="submit" value="Submit" tabindex="9"></p>
+								</fieldset>
+							</form>
+						</div> <!-- /#individual -->
+						
+						<div id="company" class="content">
+							<p>Company</p>
+						</div> <!-- /#company -->
+					</div> <!-- /.tabs-content -->
+				</div> <!-- /.columns -->
+				
+				<div class="large-3 columns">
+					<div id="high-demand" class="demandbox clearfix">
+						<span class="demandbox-title">
+							Momentan besteht <span class="red">hoher Bedarf</span> an:
+						</span>
+						<ul class="demandbox-list">
+							<li>Zement</li>
+							<li>Sands&auml;cken</li>
+						</ul>
+						<a href="#" title="Jetzt spenden!">Jetzt spenden!</a>
+					</div> <!-- /#high-demand -->
+					
+					<div id="low-demand" class="demandbox">
+						<span class="demandbox-title">
+							Der Bedarf an folgenden Spenden ist momentan <span class="green">gedeckt</span>:
+						</span>
+						<ul class="demandbox-list">
+							<li>Schuhe</li>
+						</ul>
+					</div> <!-- /#low-demand -->
+				</div> <!-- /.columns -->
+			</div> <!-- /.row -->
+		</div> <!-- /#container -->
+		
+		<footer>
+			<nav class="footer-nav">
+				<a href="#" title="Start">Start</a>
+				<a href="#" title="Suche">Suche</a>
+				<a href="#" title="Biete">Biete</a>
+				<a href="#" title="FAQ">FAQ</a>
+				<a href="#" title="Impressum">Impressum</a>
+			</nav>
+		</footer>
+		
+		<!-- * Scripts * -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<script src="js/foundation.min.js"></script>
+		<script>
+			$(document).foundation();
+		</script>
+	</body>
+</html>
+ 

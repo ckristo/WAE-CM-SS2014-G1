@@ -1,0 +1,46 @@
+@import "base/_variables";
+@import "mixins/_rowMachine";
+
+nav {
+	width: 100%;
+	height: 40px;
+	margin-bottom: 20px;
+	background: $anthrazit;
+	line-height: 40px;
+	
+	a {
+		@include rowMachine(5, 1%);
+		display: block;
+		max-width: 150px;
+		color: $nav-link-color;
+		font-size: 0.875em;
+		text-align: center;
+		text-decoration: none;
+		float: left;
+	}
+	
+	a:hover {
+		color: $nav-link-color;
+		background: $dark-anthrazit;
+	}
+}
+
+nav.footer-nav {
+	height: 100%;
+	margin-bottom: 0;
+	
+	a {
+		height: 20px;
+		margin: 0;
+		padding: 0;
+		font-size: 0.75em;
+		text-align: left;
+		float: none;
+	}
+	
+	a:hover {
+		color: $nav-link-hover-color;
+		text-decoration: underline;
+		background: $anthrazit;
+	}
+}

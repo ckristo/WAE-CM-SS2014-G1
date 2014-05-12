@@ -10,6 +10,8 @@
 /** * General (class-free) styles * **/
 /** ******************************* **/
 html, body {
+	margin: 0;
+	padding: 0;
 	height: 100%;
 }
 
@@ -71,12 +73,12 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 10px 0;
 }
 
-h1 { font-size: 2em; line-height: 1em; }
-h2 { font-size: 1.5em; line-height: 1em; }
-h3 { font-size: 1.17em; line-height: 1em; }
-h4 { font-size: 1em; line-height: 1em; }
-h5 { font-size: 0.83em; line-height: 1em; }
-h6 { font-size: 0.75em; line-height: 1em; }
+h1 { font-size: 2em; line-height: 1.1em; }
+h2 { font-size: 1.5em; line-height: 1.1em; }
+h3 { font-size: 1.17em; line-height: 1.1em; }
+h4 { font-size: 1em; line-height: 1.1em; }
+h5 { font-size: 0.83em; line-height: 1.1em; }
+h6 { font-size: 0.75em; line-height: 1.1em; }
 
 /** * Address * **/
 address {
@@ -156,6 +158,7 @@ ul, ol {
 dl {
 	dt {
 		margin-top: 10px;
+		font-weight: normal;
 		font-style: italic;
 	}
 	
