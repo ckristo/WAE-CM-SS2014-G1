@@ -1,0 +1,72 @@
+@import "base/_variables";
+
+/** ************* **/
+/** * Overrides * **/
+/** ************* **/
+.sg-doc {
+	padding-bottom: 10px;
+}
+
+/** ***************** **/
+/** * Color Palette * **/
+/** ***************** **/
+
+/** * Blue * **/
+.sg-color--dark-blue .sg-color-swatch {
+	background: $dark-blue;
+}
+
+.sg-color--grey-blue .sg-color-swatch {
+	background: $grey-blue;
+}
+
+.sg-color--blue .sg-color-swatch {
+	background: $blue;
+}
+
+.sg-color--light-blue .sg-color-swatch {
+	background: $light-blue;
+}
+
+.sg-color--very-light-blue .sg-color-swatch {
+	background: $very-light-blue;
+}
+
+/** * Grey * **/
+.sg-color--anthrazit .sg-color-swatch {
+	background: $anthrazit;
+}
+
+.sg-color--grey .sg-color-swatch {
+	background: $grey;
+}
+
+.sg-color--semi-light-grey .sg-color-swatch {
+	background: $semi-light-grey;
+}
+
+.sg-color--light-grey .sg-color-swatch {
+	background: $light-grey;
+}
+
+.sg-color--very-light-grey .sg-color-swatch {
+	background: $very-light-grey;
+}
+
+/** * Green * **/
+.sg-color--light-green .sg-color-swatch {
+	background: $light-green;
+}
+
+.sg-color--very-light-green .sg-color-swatch {
+	background: $very-light-green;
+}
+
+/** * Red * **/
+.sg-color--light-red .sg-color-swatch {
+	background: $light-red;
+}
+
+.sg-color--very-light-red .sg-color-swatch {
+	background: $very-light-red;
+}

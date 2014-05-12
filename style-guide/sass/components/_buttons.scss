@@ -1,0 +1,73 @@
+@import "base/_variables";
+
+/** ************************* **/
+/** * General button styles * **/
+/** ************************* **/
+input[type="button"], input[type="submit"], input[type="reset"], button {
+	margin: 2px 0;
+	padding: 10px;
+	color: white;
+	text-align: center;
+	border: none;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
+	cursor: pointer;
+}
+
+input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active, button:active {
+	position: relative;
+	top: -1px;
+}
+
+input[type="button"]:disabled, input[type="submit"]:disabled, input[type="reset"]:disabled, button:disabled {
+	color: $grey !important;
+	background: $light-grey !important;
+	cursor: not-allowed !important;
+}
+
+/** ******************* **/
+/** * Standard button * **/
+/** ******************* **/
+input[type="button"], button {
+	background: $very-light-blue;
+}
+
+input[type="button"]:hover, button:hover {
+	background: $light-blue;
+}
+
+input[type="button"]:active, button:active {
+	background: $very-light-blue;
+}
+
+/** ***************** **/
+/** * Submit button * **/
+/** ***************** **/
+input[type="submit"], button[type="submit"] {
+	color: $anthrazit;
+	background: $very-light-green;
+}
+
+input[type="submit"]:hover, button[type="submit"]:hover {
+	background: $light-green;
+}
+
+input[type="submit"]:active, button[type="submit"]:active {
+	background: $very-light-green;
+}
+
+/** **************** **/
+/** * Reset button * **/
+/** **************** **/
+input[type="reset"], button[type="reset"] {
+	background: $very-light-red;
+}
+
+input[type="reset"]:hover, button[type="reset"]:hover {
+	background: $light-red;
+}
+
+input[type="reset"]:active, button[type="reset"]:active {
+	background: $very-light-red;
+}

@@ -1,0 +1,263 @@
+@import "compass/css3";
+
+@import "base/_variables";
+
+*, *:before, *:after {
+	@include box-sizing(border-box);
+}
+
+/** ******************************* **/
+/** * General (class-free) styles * **/
+/** ******************************* **/
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 1.125em;
+}
+
+p {
+	margin-bottom: 4px;
+	font-size: 0.875em;
+}
+
+code {
+	font-family: "Courier New", Verdana, sans-serif;
+}
+
+abbr {
+	border-bottom: 1px dotted $grey;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+em {
+	font-weight: bold;
+	font-style: italic;
+}
+
+i {
+	font-style: italic;
+}
+
+cite {
+	color: $grey;
+	font-style: italic;
+}
+
+sup, sub {
+	position: relative;
+	height: 0;
+	font-size: 0.75em;
+	vertical-align: baseline;
+	line-height: 1;
+}
+
+sup {
+	bottom: 0.25em;
+}
+
+sub {
+	top: 0.25em;
+}
+
+/** * Headings * **/
+h1, h2, h3, h4, h5, h6 {
+	margin: 10px 0;
+}
+
+h1 { font-size: 2em; line-height: 1em; }
+h2 { font-size: 1.5em; line-height: 1em; }
+h3 { font-size: 1.17em; line-height: 1em; }
+h4 { font-size: 1em; line-height: 1em; }
+h5 { font-size: 0.83em; line-height: 1em; }
+h6 { font-size: 0.75em; line-height: 1em; }
+
+/** * Address * **/
+address {
+	font-size: 0.875em;
+}
+
+/** * Blockquote * **/
+blockquote {
+	margin: 10px;
+	color: $grey;
+	font-size: 1.125em;
+	font-style: italic;
+	quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before, blockquote:after {
+	color: $light-grey;
+	font-size: 4em;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+}
+
+blockquote:before {
+	content: open-quote;
+}
+
+blockquote:after {
+	content: close-quote;
+}
+
+blockquote p {
+  display: inline;
+}
+
+/** * Small text * **/
+small {
+	font-size: 0.75em;
+}
+
+/** * Figures * **/
+figcaption {
+	margin: 2px 0 12px 0;
+	font-size: 0.75em;
+	font-style: italic;
+	
+	h4 {
+		text-decoration: underline;
+	}
+}
+
+/** * HR / Separator * **/
+hr {
+	height: 1px;
+	color: $light-grey;
+	background: $light-grey;
+}
+
+/** ********* **/
+/** * Lists * **/
+/** ********* **/
+
+/** * General list styles * **/
+ul, ol {
+	margin: 10px 0 10px 1.25em;
+	font-size: 0.875em;
+	list-style-position: inside;
+	
+	li ul, li ol {
+		font-size: 1em;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+/** * Definition lists * **/
+dl {
+	dt {
+		margin-top: 10px;
+		font-style: italic;
+	}
+	
+	dt:first-child {
+		margin-top: 0;
+	}
+	
+	dd {
+		margin: 2px 0 2px 1.25em;
+	}
+}
+
+/** * Ordered lists * **/
+ol {
+	list-style-type: decimal;
+}
+
+/** * Unordered lists * **/
+ul {
+	list-style-type: disc;
+	
+	li ul {
+		list-style-type: circle;
+		
+		li ul {
+			list-style-type: square;
+		}
+	}
+}
+
+/** ********** **/
+/** * Images * **/
+/** ********** **/
+img {
+	color: $grey;
+	font-style: italic;
+}
+
+/** ********** **/
+/** * Tables * **/
+/** ********** **/
+table {
+	border: 1px solid $light-grey;
+	border-collapse: collapse;
+	border-spacing: 0;
+	empty-cells: show;
+	
+	caption {
+		margin: 5px 0;
+		color: $grey;
+		font-style: italic;
+	}
+	
+	thead {
+		background: none repeat scroll 0 0 $light-grey;
+		color: $anthrazit;
+		text-align: left;
+		vertical-align: bottom;
+	}
+	
+	tbody {
+		tr:nth-child(even) {
+			background: $very-light-grey;
+		}
+		
+		tr:hover {
+			color: white;
+			background: $very-light-blue;
+		}
+	}
+	
+	tfoot {
+		tr {
+			border-top: 1px solid $light-grey;
+		}
+	}
+	
+	td:first-child, th:first-child {
+		border-left-width: 0;
+	}
+	
+	th, td {
+		padding: 0.5em 1em;
+	    border-left: 1px solid $light-grey;
+	    border-width: 0 0 0 1px;
+	    font-size: 0.875em;
+	    margin: 0;
+	    overflow: visible;
+	}
+	
+	th {
+		font-weight: bold;
+	}
+}
+
+/** ********* **/
+/** * Links * **/
+/** ********* **/
+a {
+	color: $link-color;
+}
+
+a:hover {
+	color: $link-hover-color;
+}
