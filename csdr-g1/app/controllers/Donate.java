@@ -1,17 +1,42 @@
 package controllers;
 
-import models.Person;
+import models.Donation;
+import models.Donator;
+
 import play.*;
 import play.data.Form;
 import play.mvc.*;
+import play.db.jpa.*;
+
 import views.html.donate.*;
 
 public class Donate extends Controller {
 
-	public static Result index() {
-		//TODO form submission
-		Form<Person> personForm = Form.form(Person.class); //TODO: use Donation class
-        return ok(index.render(personForm));
+	static Form<Donator> donatorForm = Form.form(Donator.class);
+	
+	static Form<Donation> donationForm = Form.form(Donation.class);
+	
+	public static Result form() {
+        return ok(form.render(donatorForm, donationForm));
     }
+	
+	@Transactional
+	public static Result submit() {
+		// check for input errors
+		Form<Donator> filledDonatorForm = donatorForm.bindFromRequest();
+		Form<Donation> filledDonationForm = donationForm.bindFromRequest();
+		if (filledDonatorForm.hasErrors() || filledDonationForm.hasErrors()) {
+			return badRequest(form.render(filledDonatorForm, filledDonationForm));
+		}
+		
+		// get model objects
+		Donator donator = filledDonatorForm.get();
+		Donation donation = filledDonationForm.get();
+		
+		JPA.em().persist(donator);
+		
+		//DBG
+		return ok(donator+" "+donation);
+	}
 	
 }

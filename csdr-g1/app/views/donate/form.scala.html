@@ -1,0 +1,68 @@
+@(donatorForm: play.data.Form[Donator], donationForm: play.data.Form[Donation])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(title = "Donate") {
+	<h1>Spende anbieten</h1>
+	@helper.form(action = routes.Donate.submit, 'id -> "donateForm") {
+	@if(donatorForm.hasErrors || donationForm.hasErrors) {
+		<div class="alert-message error">
+			<p>TODO: Auf Eingabefehler hinweisen!</p>
+		</div>
+    }
+	<fieldset>
+		<legend>Angaben zum Spender</legend>
+		@inputText(donatorForm("name"),
+			'id -> "name",
+			'_label -> "Name",
+			'_help -> "Der Name des Spenders",
+			'size -> 30
+		)
+		@inputText(donatorForm("street"), 
+			'id -> "street", 
+			'_label -> "Anschrift",
+			'_help -> "Die Anschrift des Spenders",
+			'size -> 30
+		)
+		@inputText(donatorForm("zip"), 
+			'id -> "zip", 
+			'_label -> "PLZ",
+			'_help -> "Die PLZ des Spenders",
+			'size -> 5
+		)
+		@inputText(donatorForm("city"), 
+			'id -> "city", 
+			'_label -> "Ort",
+			'_help -> "Der Ort des Spenders",
+			'size -> 30
+		)
+		@inputText(donatorForm("email"), 
+			'id -> "email", 
+			'_label -> "Email-Adresse",
+			'_help -> "Die Email-Adresse des Spenders",
+			'size -> 30
+		)
+		@inputText(donatorForm("phone"), 
+			'id -> "phone", 
+			'_label -> "Telefon-Nr.",
+			'_help -> "Die Telefon-Nr. des Spenders",
+			'size -> 30
+		)
+	</fieldset>
+	<fieldset>
+		<legend>Angaben zur Spende</legend>
+		@inputText(donationForm("label"), 
+			'id -> "label", 
+			'_label -> "Bezeichnung",
+			'_help -> "Was würden Sie gerne spenden?",
+			'size -> 60
+		)
+		@* TODO: other form fields for donationForm *@
+	</fieldset>
+	<div class="actions">
+           <input type="submit" class="btn primary" value="Absenden">
+           <a href="@routes.Donate.form" class="btn">Abbrechen</a>
+       </div>
+	}
+}

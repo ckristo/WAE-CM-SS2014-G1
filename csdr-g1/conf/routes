@@ -8,4 +8,5 @@ GET     /                           controllers.Application.index()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-GET		/donate						controllers.Donate.index()
+GET		/donate						controllers.Donate.form()
+POST	/donate/submit				controllers.Donate.submit()
