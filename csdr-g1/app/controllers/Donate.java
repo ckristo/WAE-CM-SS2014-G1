@@ -16,6 +16,7 @@ public class Donate extends Controller {
 	
 	static Form<Donation> donationForm = Form.form(Donation.class);
 	
+	@Transactional
 	public static Result form() {
         return ok(form.render(donatorForm, donationForm));
     }
