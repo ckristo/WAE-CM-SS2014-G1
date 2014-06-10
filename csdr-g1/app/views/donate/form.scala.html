@@ -6,7 +6,7 @@
 
 @main(title = "Donate") {
 	<h1>Spende anbieten</h1>
-	@helper.form(action = routes.Donate.submit, 'id -> "donateForm", 'role -> "form") {
+	@helper.form(action = routes.Donate.submit, 'id -> "donateForm", 'enctype -> "multipart/form-data") {
 	@if(donatorForm.hasErrors || donationForm.hasErrors) {
 		<div class="alert-message error">
 			<p>TODO: Auf Eingabefehler hinweisen!</p>
@@ -112,11 +112,11 @@
 				)
 			</div>
 			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
-				@inputText(donationForm("files"),
+				@inputFile(donationForm("files"),
 					'id -> "files",
 					'_label -> "Fotos",
 					'class -> "form-control",
-					'placeholder -> "TODO: Implement file upload logic",
+					'multiple -> "multiple",
 					'size -> 60
 				)
 			</div>
@@ -124,9 +124,9 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-lg-4">
-				@select(donationForm("category"),
+				@select(donationForm("category.id"),
 					options(Enumerated.Category.options),
-					'id -> "label",
+					'id -> "category",
 					'_label -> "Kategorie",
 					'class -> "form-control"
 				)
@@ -147,7 +147,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-lg-4">
-				@select(donationForm("transportType"),
+				@select(donationForm("transportType.id"),
 					options(Enumerated.TransportType.options),
 					'id -> "transportType",
 					'_label -> "Transport",

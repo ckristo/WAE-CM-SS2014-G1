@@ -14,9 +14,9 @@ public class File {
 	@ManyToOne(targetEntity=Donation.class)
 	private Donation donation;
 	
-	private String filepath;
+	private String filename;
 	private String mimetype;
-	private String thumbnailpath;
+	private String thumbnail;
 	private boolean is_first;
 	
 	
@@ -32,11 +32,11 @@ public class File {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getFilepath() {
-		return filepath;
+	public String getFilename() {
+		return filename;
 	}
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 	public String getMimetype() {
 		return mimetype;
@@ -44,11 +44,11 @@ public class File {
 	public void setMimetype(String mimetype) {
 		this.mimetype = mimetype;
 	}
-	public String getThumbnailpath() {
-		return thumbnailpath;
+	public String getThumbnail() {
+		return thumbnail;
 	}
-	public void setThumbnailpath(String thumbnailpath) {
-		this.thumbnailpath = thumbnailpath;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	public boolean isIs_first() {
 		return is_first;

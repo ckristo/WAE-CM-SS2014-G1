@@ -11,6 +11,8 @@
 	</label>
     @elements.input
     @if(elements.hasErrors) {
-      <span class="help-inline">@elements.errors.mkString(", ")</span>
+    	<div class="alert alert-danger">
+    		@elements.errors.mkString("<br>")
+    	</div>
     }
 </div>
