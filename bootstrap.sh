@@ -52,8 +52,8 @@ sleep 1
 # set root password
 sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password waecm_2014' \
 && sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password waecm_2014' \
-&& sudo apt-get install -y mysql-server-5.5
-&& sudo update-rc.d mysql defaults
+&& sudo apt-get install -y mysql-server-5.5 \
+&& sudo update-rc.d mysql defaults \
 && echo "CREATE DATABASE waecm_2014 CHARACTER SET utf8 COLLATE utf8_general_ci;" | mysql -uroot -pwaecm_2014
 
 # download and extract Play framework
