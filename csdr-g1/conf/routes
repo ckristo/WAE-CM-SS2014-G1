@@ -15,3 +15,5 @@ POST	/donate/submit				controllers.Donate.submit()
 # DB population actions
 GET		/populate/categories		controllers.PopulateDb.categories()
 GET		/populate/transporttypes	controllers.PopulateDb.transportTypes()
+
+GET     /donation/list              controllers.DonationList.list(p:Int ?= 0, s ?= "label", o ?= "asc", f ?= "")

@@ -1,0 +1,138 @@
+@(currentPage: DonationPage, currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@import helper._
+@import play.api.Play
+
+@implicitField = @{ FieldConstructor(helper.forms.bootstrapForm.f) }
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    
+    // Generate the link
+    routes.DonationList.list(newPage, sortBy, order, currentFilter)
+    
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@main(title = "Donation") {
+    
+    <h1>Spende finden</h1>
+
+    @if(flash.containsKey("success")) {
+        <div class="alert-message warning">
+            <strong>Done!</strong> @flash.get("success")
+        </div>
+    } 
+
+    <div id="actions" class="col-xs-12 col-lg-3 col-md-3">  
+    	<fieldset>
+			<legend>Suchoptionen</legend>     
+        	<form action="@link(0, "label")" method="GET">
+        		<label for="searchbox">Filter:</label>
+         	   	<input type="search" class="form-control" id="searchbox" name="f" value="@currentFilter" placeholder="Bezeichnung ...">
+         	   	<span class="input-group-btn">
+        			<input type="submit" id="searchsubmit" class="btn btn-default">Filtern</button>
+      			</span>
+         	   	
+        	</form> 
+        	<br>
+        	<form action="@link(0, "label")" method="GET">
+        		<label for="categorySelect">Kategorie:</label>
+        		
+         	   	<select id="categorySelect" class="form-control">
+         	   		@for(categorie <- Enumerated.Category.findAll) {
+						<option >@categorie.getName()</option>		
+					}	
+				</select>
+				
+        	</form>  
+        </fieldset>  
+    </div>
+    
+    <div class="col-xs-12 col-lg-9 col-md-9">
+    	<fieldset>
+			<legend>Spenden</legend> 
+		    @if(currentPage.getTotalRowCount == 0) {
+		        <div class="well">
+		            <em>Nothing to display</em>
+		        </div>
+		        
+		    } else {
+		    
+		    @for(donation <- currentPage.getList) {
+		    
+		    	<div class="panel panel-default">
+		    		<div class="panel-heading">
+		    			<h3 class="panel-title">@donation.getLabel()</h3>
+		    		</div>
+		    		<div class="panel-body">
+		    			<div class="col-xs-12 col-lg-9 col-md-9">
+		    				@donation.getDescription()
+		    			</div>
+		    			<div class="col-xs-12 col-lg-3 col-md-3">
+		    				Wo: @donation.getDonorAddress()
+		    			</div>
+	
+		    			<div class="col-xs-12 col-lg-9 col-md-9">
+		    				<br>
+		    				@donation.getUsers().size() Personen haben bereits Bedarf f&uuml;r diese Spene ge&auml;u&szlig;ert
+		    			</div>
+		    		</div>
+		    		
+		    	</div>
+		    
+		    }
+	    	<div class="text-center">
+				<ul class="pagination center">
+					@if(currentPage.hasPrev) {   
+						<li><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
+					} else {
+						<li class="disabled"><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
+					}
+					@for(i <- 1 to currentPage.getAmountPages) {
+						@if(i == currentPage.getPageIndex) {
+							<li class="active"><a href="@link(i, null)">@i</a></li>
+						} else {
+							<li><a href="@link(i, null)">@i</a></li>
+						}
+					}
+					@if(currentPage.hasNext) {   
+						<li><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
+					} else {
+						<li class="disabled"><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
+					}
+				</ul>
+			</div>
+		</fieldset> 
+	</div>
+    }
+        
+}
+
+            

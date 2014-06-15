@@ -74,6 +74,8 @@ public class Donate extends Controller {
 			return ok(form.render(filledDonorForm, filledDonationForm));
 		}
 		
+		donation.setDonor(donor);
+		
 		// persist data
 		JPA.em().persist(donor);
 		JPA.em().persist(donation);
