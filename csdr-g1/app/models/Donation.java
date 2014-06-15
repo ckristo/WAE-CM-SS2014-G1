@@ -1,22 +1,19 @@
 package models;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.TypedQuery;
 
 import play.data.validation.Constraints.Required;
-import play.data.format.*;
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
 import play.db.jpa.JPA;
@@ -45,6 +42,7 @@ public class Donation {
 	@Required
 	private String label;
 	
+	@Lob
 	@Required
 	private String description;
 	
@@ -124,31 +122,27 @@ public class Donation {
 	}
 	
 	public String getDonorAddress() {
-		if(donor == null) {
-			return "donator is null";
+		if (donor != null 
+				&& donor.getStreet() != null
+				&& donor.getZip() != null
+				&& donor.getCity() != null) {
+			return donor.getStreet() + ", " + donor.getZip() + " " + donor.getCity();
 		}
-		String address = donor.getStreet() + ", "+ donor.getZip() + " " + donor.getCity();
-		if(address == null) {
-			return "address is null";
-		}
-		return address;
+		return null;
 	}
-
 	
 	@Override
 	public String toString() {
 		return String.format("Donation#%d (%s)", id, label);
 	}
-
 	
     /**
-     * Return a page of computer
-     *
-     * @param page Page to display
-     * @param pageSize Number of computers per page
-     * @param sortBy Computer property used for sorting
-     * @param order Sort order (either or asc or desc)
-     * @param filter Filter applied on the name column
+     * Return a page of Donations
+     * @param page the page to display
+     * @param pageSize the number of entries per page
+     * @param sortBy Donation property used for sorting
+     * @param order sort order (either asc or desc)
+     * @param filter filter applied on the name column
      */
     public static DonationPage page(int page, int pageSize, String sortBy, String order, String filter) {
         if(page < 1) page = 1;

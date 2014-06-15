@@ -4,7 +4,6 @@ import helper.FileHelper;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 
 import models.Donation;
@@ -74,9 +73,8 @@ public class Donate extends Controller {
 			return ok(form.render(filledDonorForm, filledDonationForm));
 		}
 		
-		donation.setDonor(donor);
-		
 		// persist data
+		donation.setDonor(donor);
 		JPA.em().persist(donor);
 		JPA.em().persist(donation);
 		
@@ -211,6 +209,7 @@ public class Donate extends Controller {
 	 * @param Donation donation - The donation object the uploaded images belong to
 	 * @return boolean true if all images have been uploaded successfully, false otherwise
 	 */
+	@SuppressWarnings("unused")
 	private static boolean uploadImages(MultipartFormData body, Donation donation) {
 		List<FilePart> files = body.getFiles();
 		
