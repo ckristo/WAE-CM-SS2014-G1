@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import play.data.validation.Constraints.Required;
+import play.data.format.*;
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
 
@@ -28,8 +30,8 @@ public class Donation {
 	@OneToOne(targetEntity=TransportType.class)
 	private TransportType transportType;
 	
-	@ManyToOne(targetEntity=Donator.class)
-	private Donator donator;
+	@ManyToOne(targetEntity=Donor.class)
+	private Donor donator;
 	
 	@OneToMany(targetEntity=File.class)
 	private List<File> files = new ArrayList<File>();
@@ -37,13 +39,14 @@ public class Donation {
 	@ManyToMany(targetEntity=User.class)
 	private List<User> users = new ArrayList<User>();
 	
+	@Required
 	private String label;
 	
+	@Required
 	private String description;
 	
-	private int number;
-	
-	private Date pickUpDate;
+	@Required
+	private Integer number;
 	
 	public List<User> getUsers() {
 		return users;
@@ -65,11 +68,11 @@ public class Donation {
 		return id;
 	}
 	
-	public Donator getDonator() {
+	public Donor getDonator() {
 		return donator;
 	}
 
-	public void setDonator(Donator donator) {
+	public void setDonator(Donor donator) {
 		this.donator = donator;
 	}
 
@@ -109,21 +112,14 @@ public class Donation {
 		this.description = description;
 	}
 
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
-	public Date getPickUpDate() {
-		return pickUpDate;
-	}
-
-	public void setPickUpDate(Date pickUpDate) {
-		this.pickUpDate = pickUpDate;
-	}
 	
 	@Override
 	public String toString() {

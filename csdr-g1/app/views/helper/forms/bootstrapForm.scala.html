@@ -2,11 +2,11 @@
 
 @import views.html.helper._
 
-<div class="form-group@if(elements.hasErrors) { error}">
+<div class="form-group@if(elements.hasErrors) { has-error}">
     <label for="@elements.id">
     	@elements.label
-		@if(elements.infos.contains("Required")) {
-			<span>*</span>
+		@if(elements.infos.contains("Required") || elements.args.get('_required)) {
+			<span class="required">*</span>
 		}
 	</label>
     @elements.input

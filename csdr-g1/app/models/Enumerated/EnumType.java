@@ -15,6 +15,12 @@ public abstract class EnumType {
 	private Integer id;
 	
 	private String name;
+	
+	public EnumType() {}
+	
+	public EnumType(String name) {
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;

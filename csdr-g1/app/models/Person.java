@@ -29,7 +29,7 @@ public abstract class Person {
 	
 	private String phone;
 	
-	private String zip;
+	private Integer zip;
 	
 	private String city;
 	
@@ -77,11 +77,11 @@ public abstract class Person {
 		this.phone = phone;
 	}
 	
-	public String getZip() {
+	public Integer getZip() {
 		return zip;
 	}
 	
-	public void setZip(String zip) {
+	public void setZip(Integer zip) {
 		this.zip = zip;
 	}
 

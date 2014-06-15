@@ -1,84 +1,49 @@
-@(donatorForm: play.data.Form[Donator], donationForm: play.data.Form[Donation])
+@(donorForm: play.data.Form[Donor], donationForm: play.data.Form[Donation])
 
 @import helper._
+@import play.api.Play
 
 @implicitField = @{ FieldConstructor(helper.forms.bootstrapForm.f) }
 
-@main(title = "Donate") {
+@bodyScripts = {
+	<script type="text/javascript">
+	(function($){
+		//TODO: JS validation + dynamically add required indicator
+		/*
+		console.log('...');
+		$pickUpDate_wrapper = $('#pickUpDate-wrapper');
+		$transportType = $('#transportType');
+		if ($transportType.val() != @Play.current.configuration.getString("transportType.pickUp.id"))
+			$pickUpDate_wrapper.hide();
+		*/
+	})(jQuery);
+	</script>	
+}
+
+@main(title = "Spende anbieten", bodyScripts) {
 	<h1>Spende anbieten</h1>
-	@helper.form(action = routes.Donate.submit, 'id -> "donateForm", 'enctype -> "multipart/form-data") {
-	@if(donatorForm.hasErrors || donationForm.hasErrors) {
-		<div class="alert-message error">
-			<p>TODO: Auf Eingabefehler hinweisen!</p>
-		</div>
+	@if(flash.containsKey("success")) {
+	<div class="alert alert-success">
+		<strong>Vielen Dank für Ihr Spenden-Angebot!</strong><br/>Sobald Ihre Spende benötigt wird, werden wir uns mit Ihnen in Verbindung setzen.
+    </div>
+	}
+	@helper.form(action = routes.Donate.summary, 'id -> "donateForm", 'enctype -> "multipart/form-data") {
+	@if(donorForm.hasErrors || donationForm.hasErrors) {
+	<div class="alert alert-danger">
+		<strong>Bitte überprüfen Sie Ihre Eingaben!</strong>
+		@* print global form errors: *@
+		<ul>
+		@donorForm.globalErrors.map { e =>
+			<li>@e.message</li>
+		}
+		@donationForm.globalErrors.map { e =>
+			<li>@e.message</li>
+		}
+		</ul>
+	</div>
     }
 	<fieldset>
-		<legend>Person</legend>
-		<div class="row">
-			<div class="col-xs-12 col-lg-4">
-				@inputText(donatorForm("name"),
-					'id -> "name",
-					'_label -> "Name",
-					'class -> "form-control",
-					'placeholder -> "Max Mustermann",
-					'size -> 30
-				)
-			</div>
-			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
-				@inputText(donatorForm("email"),
-					'id -> "email",
-					'_label -> "Email-Adresse",
-					'class -> "form-control",
-					'placeholder -> "maxmustermann@email.at",
-					'size -> 30
-				)
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-xs-12 col-lg-4">
-				@inputText(donatorForm("street"),
-					'id -> "street",
-					'_label -> "Anschrift",
-					'class -> "form-control",
-					'placeholder -> "Belvedere 1",
-					'size -> 30
-				)
-			</div>
-			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
-				@inputText(donatorForm("phone"),
-					'id -> "phone",
-					'_label -> "Telefon-Nr.",
-					'class -> "form-control",
-					'placeholder -> "+43 699 12345678",
-					'size -> 30
-				)
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-4 col-lg-1">
-				@inputText(donatorForm("zip"),
-					'id -> "zip",
-					'_label -> "PLZ",
-					'class -> "form-control small-input",
-					'placeholder -> "1040",
-					'size -> 5
-				)
-			</div>
-			<div class="col-xs-8 col-lg-3">
-				@inputText(donatorForm("city"),
-					'id -> "city",
-					'_label -> "Ort",
-					'class -> "form-control",
-					'placeholder -> "Wien",
-					'size -> 30
-				)
-			</div>
-		</div>
-	</fieldset>
-	<fieldset>
-		<legend>Spende</legend>
-		
+		<legend>Angaben zur Spende</legend>
 		<div class="row">
 			<div class="col-xs-12 col-lg-4">
 				@inputText(donationForm("label"),
@@ -89,19 +54,7 @@
 					'size -> 60
 				)
 			</div>
-			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
-				@inputDate(donationForm("pickUpDate"),
-					'id -> "pickUpDate",
-					'_label -> "Wann wird die Spende von Ihnen geliefert?",
-					'class -> "form-control small-input",
-					'placeholder -> "15.06.2014",
-					'size -> 60
-				)
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-xs-12 col-lg-4">
+			<div id="pickUpDate-wrapper" class="col-xs-12 col-lg-4 col-lg-offset-1">
 				@textarea(donationForm("description"),
 					'id -> "description",
 					'_label -> "Beschreibung",
@@ -111,7 +64,41 @@
 					'cols -> 60
 				)
 			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-lg-4">
+				@select(donationForm("category.id"),
+					options(Enumerated.Category.options),
+					'id -> "category",
+					'_label -> "Kategorie",
+					'class -> "form-control",
+					'_required -> true
+				)
+			</div>
 			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
+				@inputText(donationForm("number"),
+					'id -> "number",
+					'_label -> "Anzahl",
+					'class -> "form-control small-input",
+					'placeholder -> "1",
+					'value -> 1,
+					'size -> 5
+				)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-lg-4">
+				@select(donationForm("transportType.id"),
+					options(Enumerated.TransportType.options),
+					'id -> "transportType",
+					'_label -> "Transport",
+					'class -> "form-control",
+					'_required -> true
+				)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-lg-4">
 				@inputFile(donationForm("files"),
 					'id -> "files",
 					'_label -> "Fotos",
@@ -121,44 +108,79 @@
 				)
 			</div>
 		</div>
-		
+	</fieldset>
+	<fieldset>
+		<legend>Angaben zur Person</legend>
 		<div class="row">
 			<div class="col-xs-12 col-lg-4">
-				@select(donationForm("category.id"),
-					options(Enumerated.Category.options),
-					'id -> "category",
-					'_label -> "Kategorie",
-					'class -> "form-control"
+				@inputText(donorForm("name"),
+					'id -> "name",
+					'_label -> "Name",
+					'class -> "form-control",
+					'placeholder -> "Max Mustermann",
+					'size -> 30
+				)
+			</div>
+			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
+				@inputText(donorForm("email"),
+					'id -> "email",
+					'_label -> "Email-Adresse",
+					'class -> "form-control",
+					'placeholder -> "maxmustermann@email.at",
+					'size -> 30
 				)
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-xs-12 col-lg-4">
-				@inputText(donatorForm("number"),
-					'id -> "number",
-					'_label -> "Anzahl",
-					'class -> "form-control small-input",
-					'placeholder -> "1",
-					'size -> 5
+				@inputText(donorForm("street"),
+					'id -> "street",
+					'_label -> "Straße / Haus-Nr.",
+					'class -> "form-control",
+					'placeholder -> "Belvedere 1",
+					'size -> 30
 				)
+			</div>
+			<div class="col-xs-12 col-lg-4 col-lg-offset-1">
+				<div class="row">
+					<div class="col-xs-4 col-lg-4">
+						@inputText(donorForm("zip"),
+							'id -> "zip",
+							'_label -> "PLZ",
+							'class -> "form-control small-input",
+							'placeholder -> "1040",
+							'size -> 5
+						)
+					</div>
+					<div class="col-xs-8 col-lg-8">
+						@inputText(donorForm("city"),
+							'id -> "city",
+							'_label -> "Ort",
+							'class -> "form-control",
+							'placeholder -> "Wien",
+							'size -> 30
+						)
+					</div>
+				</div>
 			</div>
 		</div>
-		
 		<div class="row">
 			<div class="col-xs-12 col-lg-4">
-				@select(donationForm("transportType.id"),
-					options(Enumerated.TransportType.options),
-					'id -> "transportType",
-					'_label -> "Transport",
-					'class -> "form-control"
+				@inputText(donorForm("phone"),
+					'id -> "phone",
+					'_label -> "Telefon-Nr.",
+					'class -> "form-control",
+					'placeholder -> "+43 699 12345678",
+					'size -> 30
 				)
 			</div>
+			
 		</div>
 	</fieldset>
 	<div class="actions">
-           <input type="submit" class="btn primary" value="Weiter &#0187;">
-           <a href="@routes.Donate.form" class="btn">Abbrechen</a>
-       </div>
+		<a href="@routes.Donate.form" class="btn btn-default">Zurücksetzen</a>
+		<input type="submit" class="btn btn-primary" value="Weiter &raquo;">
+	</div>
 	}
 }
+

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Donator extends Person {
+public class Donor extends Person {
 
 	@OneToMany(targetEntity=Donation.class)
 	private List<Donation> donations = new ArrayList<Donation>();

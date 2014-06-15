@@ -1,0 +1,7 @@
+error.required=Bitte befüllen Sie dieses Feld!
+error.email=Keine gültige Email-Adresse!
+error.invalid=Ungültiger Wert!
+error.invalid.java.util.Date=Ungültiges Datum!
+error.unknown.Category=Unbekannte Kategorie!
+error.unknown.TransportType=Unbekannte Transport-Option!
+error.address_incomplete=Bitte geben Sie Ihre Adresse vollständig an!

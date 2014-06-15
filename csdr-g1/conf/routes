@@ -9,6 +9,7 @@ GET     /                           controllers.Application.index()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET		/donate						controllers.Donate.form()
+POST	/donate/summary				controllers.Donate.summary()
 POST	/donate/submit				controllers.Donate.submit()
 
 # DB population actions
