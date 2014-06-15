@@ -1,9 +1,9 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DonationPage {
+	
     private final int pageSize;
     private final long totalRowCount;
     private final int pageIndex;

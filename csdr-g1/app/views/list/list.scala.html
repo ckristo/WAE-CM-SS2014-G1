@@ -96,7 +96,9 @@
 		    				@donation.getDescription()
 		    			</div>
 		    			<div class="col-xs-12 col-lg-3 col-md-3">
+		    				@if(donation.getDonorAddress() != null) {
 		    				Wo: @donation.getDonorAddress()
+		    				}
 		    			</div>
 	
 		    			<div class="col-xs-12 col-lg-9 col-md-9">
