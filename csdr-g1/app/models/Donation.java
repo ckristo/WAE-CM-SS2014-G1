@@ -144,13 +144,24 @@ public class Donation {
      * @param order sort order (either asc or desc)
      * @param filter filter applied on the name column
      */
-    public static DonationPage page(int page, int pageSize, String sortBy, String order, String filter) {
+    public static DonationPage page(int page, int pageSize, String filter, List<Category> categories) {
         if(page < 1) page = 1;
-        Long total = (Long)JPA.em().createQuery("SELECT count(d) FROM Donation d WHERE lower(d.label) LIKE ?", Long.class)
-	            .setParameter(1, "%" + filter.toLowerCase() + "%").getSingleResult();
-
-        List<Donation> data = JPA.em().createQuery("FROM Donation d WHERE lower(d.label) LIKE ? ORDER BY d." + sortBy + " " + order, Donation.class)
-				.setParameter(1, "%" + filter.toLowerCase() + "%").setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
+        
+        List<Integer> ids = new ArrayList<>();
+        if(categories.size() > 0) {
+        	for(Category temp : categories) {
+        		ids.add(new Integer(temp.getId()));
+        	}
+        }
+        else {
+        	ids.add(-1);
+        }
+        
+        Long total = (Long)JPA.em().createQuery("SELECT count(d) FROM Donation d WHERE lower(d.label) LIKE :filter AND d.category.id IN (:ids) ORDER BY d.label ASC", Long.class)
+	            .setParameter("filter", "%" + filter.toLowerCase() + "%").setParameter("ids", ids).getSingleResult();
+        
+        List<Donation> data = JPA.em().createQuery("FROM Donation d WHERE lower(d.label) LIKE :filter AND d.category.id IN (:ids) ORDER BY d.label ASC", Donation.class)
+				.setParameter("filter", "%" + filter.toLowerCase() + "%").setParameter("ids", ids).setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
         
         return new DonationPage(data, total, page, pageSize);
     }

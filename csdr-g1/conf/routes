@@ -4,7 +4,6 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET		/contact					controllers.Application.contact()						
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
@@ -17,8 +16,11 @@ POST	/donate/submit				controllers.Donate.submit()
 GET		/populate/categories		controllers.PopulateDb.categories()
 GET		/populate/transporttypes	controllers.PopulateDb.transportTypes()
 
-GET     /donation/list              controllers.DonationList.list(p:Int ?= 0, s ?= "label", o ?= "asc", f ?= "")
-
 GET		/login						controllers.Login.form()
 POST	/login						controllers.Login.login()
 GET		/logout						controllers.Login.logout()
+
+GET     /donations              	controllers.DonationList.list(p:Int ?= 0, f ?= "")
+GET     /donations/addCategory  	controllers.DonationList.addCategory(p:Int ?= 0, f ?= "")
+GET     /donations/removeCategory  	controllers.DonationList.removeCategory(p:Int ?= 0, f ?= "")
+
