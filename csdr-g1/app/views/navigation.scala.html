@@ -9,14 +9,14 @@
 		        <span class="icon-bar"></span>
 	        </button>
 	        
-	        <a class="navbar-brand" href="#">@application_name</a>
+	        <a class="navbar-brand" href="@routes.Application.index">@application_name</a>
 	    </div> <!-- /.navbar-header -->
 	    <div class="collapse navbar-collapse">
 	    	<ul class="nav navbar-nav">
-		        <li><a href="@routes.Donate.form">Biete</a></li>
+		        <li class="@activeLink("/donate")"><a href="@routes.Donate.form">Biete</a></li>
 		        <!-- TODO: [at]routes -->
-		        <li><a href="/donation/list">Suche</a></li>
-		        <li><a href="@routes.Application.contact">Kontakt</a></li>
+		        <li class="@activeLink("/donations")"><a href="/donations">Suche</a></li>
+		        <li class="@activeLink("/contact")"><a href="@routes.Application.contact">Kontakt</a></li>
 	        </ul> <!-- /.nav -->
 	        <div class="navbar-form navbar-right" style="color:white">
 	        @if(session.containsKey("username")) {
@@ -29,3 +29,7 @@
 	    </div> <!-- /.navbar-collapse -->
     </div> <!-- /.container -->
 </div> <!-- /.navbar -->
+
+@activeLink(currentPath:String) = @{
+if(request.path.equals(currentPath)) "active"
+}
