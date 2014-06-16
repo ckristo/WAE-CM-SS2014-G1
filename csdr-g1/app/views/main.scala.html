@@ -1,4 +1,4 @@
-@(title: String, bodyScripts: Html = Html(""))(content: Html)
+@(title: String, bodyScripts: Html = Html(""), headerScripts: Html = Html(""))(content: Html)
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,12 +6,15 @@
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         
         <!-- Bootstrap -->
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap-theme.min.css")">
         <!-- /Bootstrap -->
+        
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        
+        @headerScripts
         
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>

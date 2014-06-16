@@ -5,6 +5,10 @@
 
 @implicitField = @{ FieldConstructor(helper.forms.bootstrapForm.f) }
 
+@headerScripts = {
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/jquery-file-upload/jquery.fileupload.css")">
+}
+
 @bodyScripts = {
 	<script type="text/javascript">
 	(function($){
@@ -25,52 +29,20 @@
 	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.ui.widget.js")"></script>
 	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.iframe-transport.js")"></script>
 	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload.js")"></script>
+	<script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script> <!-- The Templates plugin is included to render the upload/download listings -->
+	<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script> <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+	<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script> <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+	<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script> <!-- blueimp Gallery script -->
+	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-process.js")"></script> <!-- The File Upload processing plugin -->
+	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-image.js")"></script> <!-- The File Upload image preview & resize plugin -->
+	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-validate.js")"></script> <!-- The File Upload validation plugin -->
+	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-ui.js")"></script> <!-- The File Upload user interface plugin -->
 	
-	<!-- The Templates plugin is included to render the upload/download listings -->
-	<script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script> <!-- .min version available -->
-	
-	<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-	<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script> <!-- .min version available -->
-	
-	<!-- The Canvas to Blob plugin is included for image resizing functionality -->
-	<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script> <!-- .min version available -->
-	
-	<!-- blueimp Gallery script -->
-	<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script> <!-- .min version available -->
-	
-	<!-- The File Upload processing plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-process.js")"></script>
-	
-	<!-- The File Upload image preview & resize plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-image.js")"></script>
-	
-	<!-- The File Upload validation plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-validate.js")"></script>
-	
-	<!-- The File Upload user interface plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-ui.js")"></script>
-	
-	<script>
-		$(document).ready(function () {
-		    $("#donateForm").fileupload({
-			    url: '@routes.Donate.upload()',
-		        sequentialUploads: true,
-		        dataType: 'json',
-            	maxFileSize: 5000000,
-            	acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-		        done: function (e, data) {
-			        alert(data);
-		            /* $.each(data.result.files, function (index, file) {
-		                $('<p/>').text(file.name).appendTo(document.body);
-		            }); */
-		        }
-		    });
-		});
-	</script>
+	<script src="@routes.Assets.at("javascripts/jquery-file-upload/app.js")"></script>
 	
 	<!-- The template to display files available for upload -->
-<script id="template-upload" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
+	<script id="template-upload" type="text/x-tmpl">
+	{% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade">
         <td>
             <span class="preview"></span>
@@ -98,11 +70,11 @@
             {% } %}
         </td>
     </tr>
-{% } %}
-</script>
-<!-- The template to display files available for download -->
-<script id="template-download" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
+	{% } %}
+	</script>
+	<!-- The template to display files available for download -->
+	<script id="template-download" type="text/x-tmpl">
+	{% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-download fade">
         <td>
             <span class="preview">
@@ -141,14 +113,14 @@
             {% } %}
         </td>
     </tr>
-{% } %}
-</script>
+	{% } %}
+	</script>
 	<!-- *********************** -->
 	<!-- * /jQuery File Upload * -->
 	<!-- *********************** -->
 }
 
-@main(title = "Spende anbieten", bodyScripts) {
+@main(title = "Spende anbieten", bodyScripts, headerScripts) {
 	<h1>Spende anbieten</h1>
 	@if(flash.containsKey("success")) {
 	<div class="alert alert-success">
@@ -225,25 +197,19 @@
 				)
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12 col-lg-4">
-				files old
-				@* @inputFile(donationForm("files"),
-					'id -> "files",
-					'_label -> "Fotos",
-					'class -> "form-control",
-					'multiple -> "multiple",
-					'size -> 60
-				) *@
-			</div>
-		</div>
-    		<div class="row fileupload-buttonbar">
+   		<div class="row fileupload-buttonbar">
             <div class="col-lg-7">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add files...</span>
-                    <input type="file" name="files[]" multiple>
+                    <span>Fotos hinzuf&uuml;gen</span>
+                    @inputFile(donationForm("files"),
+						'id -> "files",
+						'_label -> "",
+						'class -> "form-control",
+						'multiple -> "multiple",
+						'size -> 60
+					)
                 </span>
                 <button type="submit" class="btn btn-primary start">
                     <i class="glyphicon glyphicon-upload"></i>
@@ -270,7 +236,7 @@
                 <!-- The extended global progress state -->
                 <div class="progress-extended">&nbsp;</div>
             </div>
-        </div>
+       	</div>
         <!-- The table listing the files available for upload/download -->
         <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
 	</fieldset>

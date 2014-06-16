@@ -32,3 +32,9 @@ body {
 {
 	border-top:none;
 }
+
+.files-group {
+	height: 0;
+	margin: 0;
+	padding: 0;
+}
