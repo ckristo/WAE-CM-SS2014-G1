@@ -11,6 +11,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET		/donate						controllers.Donate.form()
 POST	/donate/summary				controllers.Donate.summary()
 POST	/donate/submit				controllers.Donate.submit()
+POST	/donate/upload				controllers.Donate.upload()
 
 # DB population actions
 GET		/populate/categories		controllers.PopulateDb.categories()

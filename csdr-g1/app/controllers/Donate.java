@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import models.Donation;
 import models.Donor;
 import models.Enumerated.Category;
@@ -14,11 +17,11 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.db.jpa.*;
 import play.i18n.Messages;
+import play.libs.Json;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.*;
 import play.Play;
-
 import views.html.donate.*;
 
 public class Donate extends Controller {
@@ -81,6 +84,17 @@ public class Donate extends Controller {
 		flash("success", "success");
 		
 		return ok(form.render(donorForm, donationForm));
+	}
+	
+	public static Result upload() 
+		{Http.MultipartFormData body = request().body().asMultipartFormData();
+
+	    for(Http.MultipartFormData.FilePart file : body.getFiles()) {
+	    }
+		
+		ObjectNode result = Json.newObject();
+		result.put("testKey", "testValue");
+		return ok(result);
 	}
 	
 	/**
