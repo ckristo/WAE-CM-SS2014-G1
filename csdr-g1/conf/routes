@@ -21,3 +21,4 @@ GET     /donation/list              controllers.DonationList.list(p:Int ?= 0, s 
 
 GET		/login						controllers.Login.form()
 POST	/login						controllers.Login.login()
+GET		/logout						controllers.Login.logout()

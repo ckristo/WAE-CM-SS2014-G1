@@ -42,6 +42,11 @@ public class Login extends Controller {
 
 		return ok(login.render(loginForm));
 	}
+	
+	public static Result logout() {
+		session().clear();
+		return redirect(routes.Application.index());
+	}
 
 	public static class LoginModel {
 		@Required
