@@ -11,15 +11,15 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import views.html.list.*;
 
 public class DonationList extends Controller {
 	
 	private static List<Category> categories = new ArrayList<Category>();
-	
-	
 
+	@Security.Authenticated(Secured.class)
     @Transactional(readOnly=true)
     public static Result list(int page, String filter) {
     	if(categories.size() == 0) {
@@ -31,6 +31,7 @@ public class DonationList extends Controller {
         );
     }
     
+	@Security.Authenticated(Secured.class)
     @Transactional(readOnly=true)
     public static Result addCategory(int page, String filter) {
     	DynamicForm bindedForm = Form.form().bindFromRequest();
@@ -55,6 +56,7 @@ public class DonationList extends Controller {
             );
     }
     
+	@Security.Authenticated(Secured.class)
     @Transactional(readOnly=true)
     public static Result removeCategory(int page, String filter) {
     	DynamicForm bindedForm = Form.form().bindFromRequest();
