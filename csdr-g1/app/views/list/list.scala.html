@@ -1,4 +1,4 @@
-@(currentPage: DonationPage, currentSortBy: String, currentOrder: String, currentFilter: String)
+@(currentPage: DonationPage, currentFilter: String, selectedCategories: List[models.Enumerated.Category])
 
 @import helper._
 @import play.api.Play
@@ -8,37 +8,13 @@
 @****************************************
 * Helper generating navigation links    *
 ****************************************@
-@link(newPage:Int, newSortBy:String) = @{
-    
-    var sortBy = currentSortBy
-    var order = currentOrder
-    
-    if(newSortBy != null) {
-        sortBy = newSortBy
-        if(currentSortBy == newSortBy) {
-            if(currentOrder == "asc") {
-                order = "desc"
-            } else {
-                order = "asc"
-            }
-        } else {
-            order = "asc"
-        }
-    }
+@link(newPage:Int) = @{
     
     // Generate the link
-    routes.DonationList.list(newPage, sortBy, order, currentFilter)
+    routes.DonationList.list(newPage, currentFilter)
     
 }
 
-@**********************************
-* Helper generating table headers *
-***********************************@
-@header(key:String, title:String) = {
-    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
-        <a href="@link(0, key)">@title</a>
-    </th>
-}
 
 @main(title = "Donation") {
     
@@ -49,11 +25,11 @@
             <strong>Done!</strong> @flash.get("success")
         </div>
     } 
-
+	<div class="row">
     <div id="actions" class="col-xs-12 col-lg-3 col-md-3">  
     	<fieldset>
 			<legend>Suchoptionen</legend>     
-        	<form action="@link(0, "label")" method="GET">
+        	<form action="@link(0)" method="GET">
         		<label for="searchbox">Filter:</label>
 	         	<div class="input-group" id="searchbox" >
 	         		<input type="text" class="form-control" name="f" value="@currentFilter" placeholder="Bezeichnung ...">
@@ -63,20 +39,38 @@
          	   	</div>
         	</form> 
         	<br>
-        	<form action="@link(0, "label")" method="GET">
-        		<label for="categorySelectGroup">Kategorie:</label>
-        		<div class="input-group" id="categorySelectGroup" >
+        	<label for="categorySelectGroup">Kategorie:</label>
+        	@helper.form(action=routes.DonationList.removeCategory(0, currentFilter)){
+	        	@for(category <- selectedCategories) {	        		
+	        		<div class="row">
+	        			<div class="col-xs-9 col-lg-9 col-md-9">
+		        			@category.getName()
+		        			<input type="hidden" name="categorySelect" value="@category.getId()">
+	        			</div>
+	        			<div class="col-xs-3 col-lg-3 col-md-3">	        	
+		        			<button type="submit" class="btn btn-default btn-xs">
+			  					<span class="glyphicon glyphicon-minus-sign"></span>
+							</button>
+						</div>	
+					</div>		        		
+	        	}
+        	}
+			@helper.form(action=routes.DonationList.addCategory(0, currentFilter)){  
+			<div class="row">
+        		<div class="col-xs-9 col-lg-9 col-md-9">	
 	         	   	<select id="categorySelect" name="categorySelect" class="form-control" >
 	         	   		@for(categorie <- Enumerated.Category.findAll) {
 							<option value="@categorie.getId()">@categorie.getName()</option>		
 						}	
 					</select>
-				
-		        	<button type="submit" class="btn btn-default">
+				</div>
+				<div class="col-xs-3 col-lg-3 col-md-3">
+		        	<button type="submit" class="btn btn-default btn-xs">
 	  					<span class="glyphicon glyphicon-plus-sign"></span>
 					</button>										
 				</div>
-        	</form>  
+			</div>
+        	}  
         </fieldset>  
     </div>
     
@@ -97,10 +91,11 @@
 		    			<h3 class="panel-title">@donation.getLabel()</h3>
 		    		</div>
 		    		<div class="panel-body">
-		    			<div class="col-xs-12 col-lg-9 col-md-9">
+		    			<div class="col-xs-12 col-lg-8 col-md-8">
 		    				@donation.getDescription()
 		    			</div>
-		    			<div class="col-xs-12 col-lg-3 col-md-3">
+		    			<div class="col-xs-12 col-lg-4 col-md-4">
+		    				Kategorie: @donation.getCategory().getName()<br>
 		    				@if(donation.getDonorAddress() != null) {
 		    				Wo: @donation.getDonorAddress()
 		    				}
@@ -118,25 +113,26 @@
 	    	<div class="text-center">
 				<ul class="pagination center">
 					@if(currentPage.hasPrev) {   
-						<li><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
+						<li><a href="@link(currentPage.getPageIndex - 1)">&laquo;</a></li>
 					} else {
-						<li class="disabled"><a href="@link(currentPage.getPageIndex - 1, null)">&laquo;</a></li>
+						<li class="disabled"><a href="@link(currentPage.getPageIndex)">&laquo;</a></li>
 					}
 					@for(i <- 1 to currentPage.getAmountPages) {
 						@if(i == currentPage.getPageIndex) {
-							<li class="active"><a href="@link(i, null)">@i</a></li>
+							<li class="active"><a href="@link(i)">@i</a></li>
 						} else {
-							<li><a href="@link(i, null)">@i</a></li>
+							<li><a href="@link(i)">@i</a></li>
 						}
 					}
 					@if(currentPage.hasNext) {   
-						<li><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
+						<li><a href="@link(currentPage.getPageIndex + 1)">&raquo;</a></li>
 					} else {
-						<li class="disabled"><a href="@link(currentPage.getPageIndex + 1, null)">&raquo;</a></li>
+						<li class="disabled"><a href="@link(currentPage.getPageIndex)">&raquo;</a></li>
 					}
 				</ul>
 			</div>
 		</fieldset> 
+	</div>
 	</div>
     }
         
