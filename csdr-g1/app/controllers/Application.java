@@ -11,8 +11,8 @@ public class Application extends Controller {
         return ok(index.render("Title"));
     }
 	
-    /*public static Result contact() {
+    public static Result contact() {
         return ok(contact.render("Title"));
-    }*/
+    }
 
 }
