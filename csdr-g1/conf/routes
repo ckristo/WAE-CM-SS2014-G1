@@ -18,3 +18,6 @@ GET		/populate/categories		controllers.PopulateDb.categories()
 GET		/populate/transporttypes	controllers.PopulateDb.transportTypes()
 
 GET     /donation/list              controllers.DonationList.list(p:Int ?= 0, s ?= "label", o ?= "asc", f ?= "")
+
+GET		/login						controllers.Login.form()
+POST	/login						controllers.Login.login()
