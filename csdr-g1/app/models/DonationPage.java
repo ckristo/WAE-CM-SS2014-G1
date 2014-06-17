@@ -33,7 +33,7 @@ public class DonationPage {
     }
     
     public boolean hasNext() {
-        return (totalRowCount/pageSize) > pageIndex;
+        return pageIndex < getAmountPages();
     }
     
     public int getAmountPages() {
