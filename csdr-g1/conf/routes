@@ -26,4 +26,3 @@ GET     /donations/filter          	controllers.DonationList.filter()
 GET     /donations/addCategory  	controllers.DonationList.addCategory()
 GET     /donations/removeCategory  	controllers.DonationList.removeCategory()
 GET     /donations/needdonation	  	controllers.DonationList.needDonation()
-

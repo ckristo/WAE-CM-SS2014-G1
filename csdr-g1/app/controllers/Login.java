@@ -22,7 +22,6 @@ public class Login extends Controller {
 	 * will be able to login with the corresponding user permanently. Should be fixed 
 	 * when going productive. */
 	public static Result login() {
-		System.out.println("login");
 		Form<Login.LoginModel> formLm = loginForm.bindFromRequest("username",
 				"password");
 
@@ -34,7 +33,6 @@ public class Login extends Controller {
 		// STATIC PASSWORD COMPARISON
 		if (formLm.field("username").value().equals("waecm")
 				&& formLm.field("password").value().equals("waecm")) {
-			System.out.println("correct login");
 			session().clear();
 	        session("username", formLm.field("username").value());
 			return redirect(routes.Application.index());

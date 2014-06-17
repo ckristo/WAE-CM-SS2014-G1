@@ -7,122 +7,115 @@
 
 
 @main(title = "Donation") {
-    
     <h1>Spende finden</h1>
-
     @if(flash.containsKey("success")) {
         <div class="alert alert-success">
-			<strong>Vielen Dank!</strong><br/>Ihre Anfrage wurde erfolgreich gespeichert.
+			<strong>Vielen Dank!</strong><br/>Ihr Bedarf wurde vermerkt und die Spende wird angefordert.
    	 	</div>
     } 
-	<div class="row">
+    <div class="row">
 	    <div id="actions" class="col-xs-12 col-lg-3 col-md-3">  
 	    	<fieldset>
-				<legend>Suchoptionen</legend>   
-				@helper.form(action=routes.DonationList.filter()){  
+				<legend>Suchoptionen</legend>
+				@helper.form(action=routes.DonationList.filter) {  
 	        		<label for="searchbox">Filter:</label>
-		         	<div class="input-group" id="searchbox" >
+		         	<div class="input-group" id="searchbox">
 		         		<input type="text" class="form-control" name="filter" value="@currentFilter" placeholder="Bezeichnung ...">
 		        		<span class="input-group-btn">
 		        			<button type="submit" class="btn btn-default">Filtern</button>
 		        		</span>
 	         	   	</div>
 	        	}
-	        	<br>
-	        	<label for="categorySelectGroup">Kategorie:</label>	        	
-		        @for((categoryKey, categoryName) <- selectedCategoryMap) {	    
-		        	@if(!categoryKey.isEmpty()) {    	
-			        	@helper.form(action=routes.DonationList.removeCategory()){	
-			        		<div class="row">
-			        			<div class="col-xs-9 col-lg-9 col-md-9">
-				        			@categoryName
-				        			<input type="hidden" name="category" value="@categoryKey">
-			        			</div>
-			        			<div class="col-xs-3 col-lg-3 col-md-3">	        	
-				        			<button type="submit" class="btn btn-link btn-xs brand-danger" style="color: rgb(212, 106, 64);">
-					  					<span class="glyphicon glyphicon-minus-sign"></span>
-									</button>
-								</div>	
-							</div>		        		
-			        	}
-		        	}
+	        	<br/>
+	        	<label for="categorySelectGroup">Kategorie:</label>
+	        	@helper.form(action=routes.DonationList.removeCategory()) {   	
+			        @for((categoryKey, categoryName) <- selectedCategoryMap) {	    
+			        	@if(!categoryKey.isEmpty()) {    	
+		        		<div id="donationList_selectedCategories" class="row">
+		        			<div class="col-xs-10 col-lg-10 col-md-10">
+			        			@categoryName
+			        			<input type="hidden" name="category" value="@categoryKey">
+		        			</div>
+		        			<div class="col-xs-2 col-lg-2 col-md-2">	        	
+			        			<button type="submit" class="btn btn-link btn-xs brand-danger" style="color: rgb(212, 106, 64);">
+				  					<span class="glyphicon glyphicon-minus-sign"></span>
+								</button>
+							</div>
+						</div>		        		
+				        }
+			        }
 	        	}
-				@helper.form(action=routes.DonationList.addCategory()){  
-					<br>
-					<div class="row">
-						<div class="input-group">		        
-							<div class="col-xs-9 col-lg-9 col-md-9">			
-			         	   	<select id="categorySelect" name="category" class="form-control" >
+	        	@if(selectedCategoryMap.size < Enumerated.Category.options.size) {
+		        	@helper.form(action=routes.DonationList.addCategory) {
+		        	<div class="row">
+		        		<div class="col-xs-9 col-lg-9 col-md-9">
+		       				<select id="categorySelect" name="category" class="form-control" >
 			         	   		@for((id, name) <- Enumerated.Category.options) {
 			         	   			@if(!selectedCategoryMap.contains(id)) {
 										<option value="@id">@name</option>	
 									}	
-								}	
+								}
 							</select>
-							</div>
-							<div class="col-xs-3 col-lg-3 col-md-3">
-							<span class="input-group-btn">
-					        	<button type="submit" class="btn btn-link btn-xs">
-				  					<span class="glyphicon glyphicon-plus-sign"></span>
-								</button>
-							</span>	
-							</div>									
-						</div>	
-					</div>
-        		}  
-        	</fieldset>  
-    	</div>
-	    <div class="col-xs-12 col-lg-9 col-md-9">
-	    <div class="row">
-	    	<fieldset>
-				<legend>Spenden</legend> 
-			    @if(currentPage.getTotalRowCount == 0) {
-			        <div class="well">
-			            <em>Nothing to display</em>
-			        </div>
-			        
-			    } else {
-			    
-			    @for(donation <- currentPage.getList) {
-			    
-			    	<div class="panel panel-default">
-			    		<div class="panel-heading">
-			    			<h3 class="panel-title">@donation.getLabel()</h3>
+		       			</div>
+		       			<div class="col-xs-3 col-lg-3 col-md-3">
+		        			<button type="submit" class="btn btn-link btn-xs">
+						  		<span class="glyphicon glyphicon-plus-sign"></span>
+							</button>
+						</div>
+		        	</div>
+		      		}
+	      		}
+	      		<br/>
+	       	</fieldset>  
+	   	</div>
+	   	<div class="col-xs-12 col-lg-7 col-md-7 col-lg-offset-1 col-md-offset-1">
+	   		<fieldset>
+	   			<legend>Spenden</legend>
+	   		</fieldset>
+	   		@if(currentPage.getTotalRowCount == 0) {
+		    <div class="well">
+		    	<em>Keine Spenden im System vorhanden</em>
+		    </div>
+		    } else {
+		    	@for(donation <- currentPage.getList) {
+		    	<div class="panel panel-default">
+		    		<div class="panel-heading">
+		    			<h3 class="panel-title">@donation.getLabel()</h3>
+		    		</div>
+		    		<div class="panel-body">
+			    		<div class="row">
+			    			<div class="col-xs-12 col-lg-3 col-md-3 list-image">
+		    					<img alt="placeholder" src="@routes.Assets.at("images/default-placeholder.png")" class="img-thumbnail img-responsive">
+		    				</div>
+		    				<div class="col-xs-12 col-lg-6 col-md-6 list-description">
+		    					<div class="preformatted">@donation.getDescription()</div>
+		    				</div>
 			    		</div>
-			    		<div class="panel-body">
-			    			@helper.form(action=routes.DonationList.needDonation()){
-				    			<div class="row">
-				    				<div class="col-xs-12 col-lg-3 col-md-3">
-				    					<img alt="placeholder" src="../../assets/images/default-placeholder.png" class="img-thumbnail img-responsive">
-				    				</div>
-				    				<div class="col-xs-12 col-lg-6 col-md-6">	
-				    					@donation.getDescription()
-				    				</div>
-				    				<div class="col-xs-12 col-lg-3 col-md-3">
-				    					Kategorie: @donation.getCategory().getName()<br>
-				    					@if(donation.getDonorAddress() != null) {
-				    						Wo: @donation.getDonorAddress()
-				    					}
-				    				</div>
-								</div>
-								<div class="row">
-				    				<div class="col-xs-12 col-lg-10 col-md-10">
-				    					<br>
-				    					@donation.getUsers().size() Personen haben bereits Bedarf f&uuml;r diese Spende ge&auml;u&szlig;ert
-				    				</div>
-				    				<input type="hidden" name="donationId" value="@donation.getId()">
-				    				<div class="col-xs-12 col-lg-2 col-md-2">		    					
-				    					<button type="submit" class="btn btn-default">Brauch Ich!</button>
-				    				</div>
-				    			</div>
+			    		<div class="row row-space border-top-thin border-bottom-thin">
+			    			<div class="col-xs-12 col-lg-12 col-md-12">
+			    				<span class="category-small">@donation.getCategory().getName()</span>
+			    				<span class="city-small">
+			    					@@ @{donation.getDonor.getZip+" "+donation.getDonor.getCity}
+			    				</span>
+			    			</div>
+			    		</div>
+			    		<div class="row row-space">
+			    			<div class="col-xs-7 col-lg-8 col-md-8">
+			    				<span class="interested-people"><strong>@donation.getUsers().size()</strong> Personen haben bereits Bedarf f&uuml;r diese Spende bekundet</span>
+			    			</div>
+			    			<div class="col-xs-5 col-lg-4 col-md-4 interest-button">
+			    			@helper.form(action=routes.DonationList.needDonation) {
+			    				<input type="hidden" name="donationId" value="@donation.getId()">
+			    				<button type="submit" class="btn btn-sm btn-primary">Brauch Ich!</button>
 			    			}
+			    			</div>
 			    		</div>
-			    		
 			    	</div>
-			    
-			    }
-		    	<div class="text-center">
-					<ul class="pagination center">
+		    	</div>
+		    	}
+		    	<div class="row center">
+					<div class="col-xs-12 col-lg-12 col-md-12">
+						<ul class="pagination center">
 						@if(currentPage.hasPrev) {   
 							<li><a href="@routes.DonationList.list(currentPage.getPageIndex - 1)">&laquo;</a></li>
 						} else {
@@ -140,14 +133,11 @@
 						} else {
 							<li class="disabled"><a href="@routes.DonationList.list(currentPage.getPageIndex)">&raquo;</a></li>
 						}
-					</ul>
-				</div>
-			</fieldset> 
-			</div>
+						</ul>
+					</div>
+				</div><!-- pagination footer -->
+		    }
+	   	</div>
 	</div>
-	</div>
-    }
-        
+	
 }
-
-            

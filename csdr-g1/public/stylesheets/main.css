@@ -1,14 +1,56 @@
 
-body {
+body 
+{
   padding-top: 60px;
   padding-bottom: 60px;
 }
 
-.required {
+.required 
+{
 	color: #d9534f;
 }
-.preformatted {
+.preformatted 
+{
 	white-space: pre-wrap;
+}
+
+.category-small,
+.city-small,
+.interested-people
+{
+	font-size:0.85em;
+}
+.category-small
+{
+	font-weight:bold;
+}
+.interest-button
+{
+	text-align:right;
+	padding-top:5px;
+}
+.list-image,
+.list-description
+{
+	margin-bottom: 1em;
+}
+.border-top-thin
+{
+	border-top:thin solid #ddd;
+}
+.border-bottom-thin
+{
+	border-bottom:thin solid #ddd;
+}
+.row-space
+{
+	padding-top:0.7em;
+	padding-bottom:0.7em;
+}
+.center
+{
+	margin:0 auto;
+	text-align:center;
 }
 
 /* donate form */
@@ -18,17 +60,18 @@ body {
 	margin-top:5px;
 }
 
-#donationSummary .table th
-{
-	padding-left:30px
-}
 #donationSummary .table tr.head th
 {
-	padding-left:0;
 	border-top:none;
 }
 #donationSummary .table tr.first th,
 #donationSummary .table tr.first td
 {
 	border-top:none;
+}
+
+/* donation list */
+#donationList_selectedCategories
+{
+	margin-bottom:0.5em;
 }
