@@ -21,7 +21,9 @@ GET		/login						controllers.Login.form()
 POST	/login						controllers.Login.login()
 GET		/logout						controllers.Login.logout()
 
-GET     /donations              	controllers.DonationList.list(p:Int ?= 0, f ?= "")
-GET     /donations/addCategory  	controllers.DonationList.addCategory(p:Int ?= 0, f ?= "")
-GET     /donations/removeCategory  	controllers.DonationList.removeCategory(p:Int ?= 0, f ?= "")
+GET     /donations              	controllers.DonationList.list(p:Int ?= 0)
+GET     /donations/filter          	controllers.DonationList.filter()
+GET     /donations/addCategory  	controllers.DonationList.addCategory()
+GET     /donations/removeCategory  	controllers.DonationList.removeCategory()
+GET     /donations/needdonation	  	controllers.DonationList.needDonation()
 

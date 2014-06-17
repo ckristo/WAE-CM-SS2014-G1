@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,9 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import play.data.validation.Constraints.Required;
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
+import play.data.validation.Constraints.Required;
 import play.db.jpa.JPA;
 
 @Entity
@@ -140,17 +141,18 @@ public class Donation {
      * Return a page of Donations
      * @param page the page to display
      * @param pageSize the number of entries per page
-     * @param sortBy Donation property used for sorting
-     * @param order sort order (either asc or desc)
      * @param filter filter applied on the name column
+     * @param categories of the search
      */
-    public static DonationPage page(int page, int pageSize, String filter, List<Category> categories) {
+    public static DonationPage page(int page, int pageSize, String filter, Map<String, String> categories) {
         if(page < 1) page = 1;
         
-        List<Integer> ids = new ArrayList<>();
+        List<Integer> ids = new ArrayList<Integer>();        
         if(categories.size() > 0) {
-        	for(Category temp : categories) {
-        		ids.add(new Integer(temp.getId()));
+        	for(String id : categories.keySet()) {
+        		if(!id.isEmpty()) {
+        			ids.add(Integer.valueOf(id));
+        		}
         	}
         }
         else {
