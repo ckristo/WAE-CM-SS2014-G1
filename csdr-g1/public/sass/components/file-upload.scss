@@ -1,3 +1,36 @@
+@import "base/variables";
+
+/** $File Upload **/
+ul#donation-pictures {
+	padding: 0;
+	list-style-type: none;
+	
+	li {
+		margin: 0 20px 20px 0;
+		padding: 10px;
+		border: 1px solid $light-grey;
+		float: left;
+		
+		img, canvas {
+			display: block;
+			margin: 0 auto 10px auto;
+		}
+		
+		.filename {
+			display: inline-block;
+			width: 100%;
+			text-align: center;
+			
+			.btn-danger {
+				padding: 2px 4px;
+				line-height: 1;
+			}
+		}
+	}
+}
+
+/** $jQuery File Upload Plugin - Customizations / Fixes **/
+/* Adjust "Add pictures" button size */
 .fileupload-buttonbar {
 	.fileinput-button {
 		.form-group {

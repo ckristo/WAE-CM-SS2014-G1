@@ -23,8 +23,10 @@
     	<div class="container">
     		@content
     	</div> <!-- /.container -->
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/libs/jquery-1.9.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+        @* TODO: embed *.min.js versions depending on application environment (production, dev, etc) *@
+        <script src="@routes.Assets.at("javascripts/dist/app.js")" type="text/javascript"></script>
         @bodyScripts
     </body>
 </html>

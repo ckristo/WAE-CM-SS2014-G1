@@ -26,50 +26,28 @@
 	<!-- ********************** -->
 	<!-- * jQuery File Upload * -->
 	<!-- ********************** -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.ui.widget.js")"></script>
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.iframe-transport.js")"></script>
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload.js")"></script>
-	<script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script> <!-- The Templates plugin is included to render the upload/download listings -->
-	<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script> <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-	<script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script> <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-	<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script> <!-- blueimp Gallery script -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-process.js")"></script> <!-- The File Upload processing plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-image.js")"></script> <!-- The File Upload image preview & resize plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-validate.js")"></script> <!-- The File Upload validation plugin -->
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/jquery.fileupload-ui.js")"></script> <!-- The File Upload user interface plugin -->
-	
-	<script src="@routes.Assets.at("javascripts/jquery-file-upload/app.js")"></script>
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.ui.widget.js")"></script>
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.iframe-transport.js")"></script>
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.fileupload.js")"></script>
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/tmpl.min.js")"></script> <!-- The Templates plugin is included to render the upload/download listings -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/load-image.min.js")"></script> <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/canvas-to-blob.min.js")"></script> <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.blueimp-gallery.min.js")"></script> <!-- blueimp Gallery script -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.fileupload-process.js")"></script> <!-- The File Upload processing plugin -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.fileupload-image.js")"></script> <!-- The File Upload image preview & resize plugin -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.fileupload-validate.js")"></script> <!-- The File Upload validation plugin -->
+	<script src="@routes.Assets.at("javascripts/libs/jquery-file-upload/jquery.fileupload-ui.js")"></script> <!-- The File Upload user interface plugin -->
 	
 	<!-- The template to display files available for upload -->
 	<script id="template-upload" type="text/x-tmpl">
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="preview"></span>
-        </td>
-        <td>
-            <p class="name">{%=file.name%}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        <td>
-            <p class="size">Processing...</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-        </td>
-        <td>
-            {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
-                </button>
-            {% } %}
-            {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
+	<li class="template-upload fade">
+		<span class="preview"></span>
+		<span class="filename">
+			{%=file.name%}
+			<button class="btn btn-danger"><i class="glyphicon glyphicon-ban-circle"></i></button>
+		</span>
+	</li>
 	{% } %}
 	</script>
 	<!-- The template to display files available for download -->
@@ -198,7 +176,10 @@
 			</div>
 		</div>
    		<div class="row fileupload-buttonbar">
-            <div class="col-lg-7">
+            <div class="col-lg-9">
+            	<label>Fotos:</label>
+       			<ul id="donation-pictures" class="files clearfix"></ul>
+            	
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-success fileinput-button">
                     <i class="glyphicon glyphicon-plus"></i>
@@ -238,7 +219,7 @@
             </div>
        	</div>
         <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+        <!-- <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table> -->
 	</fieldset>
 	<fieldset>
 		<legend>Angaben zur Person</legend>

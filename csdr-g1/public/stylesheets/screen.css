@@ -1,5 +1,49 @@
 /* If you do not want to bother with SASS, simply put all your files into the main.css file */
 @import url(main.css);
+/** Clearfix hack **/
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+  /* For IE 6/7 (trigger hasLayout) */
+}
+
+/** $Colors **/
+/** $File Upload **/
+ul#donation-pictures {
+  padding: 0;
+  list-style-type: none;
+}
+ul#donation-pictures li {
+  margin: 0 20px 20px 0;
+  padding: 10px;
+  border: 1px solid #eeeeee;
+  float: left;
+}
+ul#donation-pictures li img, ul#donation-pictures li canvas {
+  display: block;
+  margin: 0 auto 10px auto;
+}
+ul#donation-pictures li .filename {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+ul#donation-pictures li .filename .btn-danger {
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+/** $jQuery File Upload Plugin - Customizations / Fixes **/
+/* Adjust "Add pictures" button size */
 .fileupload-buttonbar .fileinput-button .form-group {
   height: 0;
   margin: 0;
