@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Donor;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
 import play.mvc.Controller;
@@ -13,7 +12,6 @@ public class Login extends Controller {
 	static Form<Login.LoginModel> loginForm = Form.form(Login.LoginModel.class);
 
 	public static Result form() {
-		System.out.println("form");
 		return ok(login.render(loginForm));
 	}
 

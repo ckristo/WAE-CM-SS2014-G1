@@ -19,7 +19,7 @@
 			    min: jQuery.validator.format("@Messages("error.min")")
 			});
 			
-			var addressRequired = function() {
+			var addressPhoneRequired = function() {
 				// on transportType = pickUp
 				if ($('#donateForm').find("[name='transportType.id']").val() == @Play.current.configuration.getString("transportType.pickUp.id")) {
 					return true;
@@ -64,13 +64,16 @@
 						"email": true,
 					},
 					"street": {
-						"required": addressRequired,
+						"required": addressPhoneRequired,
 					},
 					"zip": {
-						"required": addressRequired,
+						"required": addressPhoneRequired,
 					},
 					"city": {
-						"required": addressRequired,
+						"required": addressPhoneRequired,
+					},
+					"phone": {
+						"required": 
 					}
 				},
 			});
