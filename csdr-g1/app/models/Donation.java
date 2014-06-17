@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
 import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.Min;
 import play.db.jpa.JPA;
 
 @Entity
@@ -48,6 +49,7 @@ public class Donation {
 	private String description;
 	
 	@Required
+	@Min(value=1)
 	private Integer number;
 	
 	public List<User> getUsers() {

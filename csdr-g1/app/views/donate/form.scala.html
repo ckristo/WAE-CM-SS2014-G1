@@ -1,30 +1,89 @@
 @(donorForm: play.data.Form[Donor], donationForm: play.data.Form[Donation])
 
-@import helper._
 @import play.api.Play
+@import play.api.libs.json.Json
+@import helper._
 
 @implicitField = @{ FieldConstructor(helper.forms.bootstrapForm.f) }
 
 @bodyScripts = {
+	<script src="@routes.Assets.at("javascripts/jquery.validate.min.js")" type="text/javascript"></script>
 	<script type="text/javascript">
-	(function($){
-		//TODO: JS validation + dynamically add required indicator
-		/*
-		console.log('...');
-		$pickUpDate_wrapper = $('#pickUpDate-wrapper');
-		$transportType = $('#transportType');
-		if ($transportType.val() != @Play.current.configuration.getString("transportType.pickUp.id"))
-			$pickUpDate_wrapper.hide();
-		*/
-	})(jQuery);
-	</script>	
+		$(function($) {
+			// overwrite jQuery validator plugin messages
+			$.extend($.validator.messages, {
+			    required: "@Messages("error.required")",
+			    email: "@Messages("error.email")",
+			    date: "@Messages("error.invalid.java.util.Date")",
+			    number: "@Messages("error.invalid")",
+			    min: jQuery.validator.format("@Messages("error.min")")
+			});
+			
+			var addressRequired = function() {
+				// on transportType = pickUp
+				if ($('#donateForm').find("[name='transportType.id']").val() == @Play.current.configuration.getString("transportType.pickUp.id")) {
+					return true;
+				}			
+				return false;
+			};
+			
+			// register jQuery validation plugin
+			$('#donateForm').validate({
+				"highlight": function(element) {
+			        $(element).closest('.form-group').addClass('has-error');
+			    },
+			    "unhighlight": function(element) {
+			        $(element).closest('.form-group').removeClass('has-error');
+			    },
+			    "errorElement": "div",
+			    "errorClass": "alert alert-danger",
+			    "rules": {
+			    	// Donation
+					"label": { 
+						"required": true
+					},
+					"description": { 
+						"required": true
+					},
+					"category.id": { 
+						"required": true
+					},
+					"number": { 
+						"required": true,
+						"min": 1
+					},
+					"transportType.id": {
+						"required": true,
+					},
+					// Donor
+					"name": {
+						"required": true,
+					},
+					"email": {
+						"required": true,
+						"email": true,
+					},
+					"street": {
+						"required": addressRequired,
+					},
+					"zip": {
+						"required": addressRequired,
+					},
+					"city": {
+						"required": addressRequired,
+					}
+				},
+			});
+		});
+	</script>
 }
 
 @main(title = "Spende anbieten", bodyScripts) {
 	<h1>Spende anbieten</h1>
 	@if(flash.containsKey("success")) {
 	<div class="alert alert-success">
-		<strong>Vielen Dank für Ihr Spenden-Angebot!</strong><br/>Sobald Ihre Spende benötigt wird, werden wir uns mit Ihnen in Verbindung setzen.
+		<strong>Vielen Dank für Ihr Spenden-Angebot!</strong><br/>
+		Sobald Ihre Spende benötigt wird, werden wir uns mit Ihnen in Verbindung setzen.
     </div>
 	}
 	@helper.form(action = routes.Donate.summary, 'id -> "donateForm", 'enctype -> "multipart/form-data") {
@@ -183,4 +242,3 @@
 	</div>
 	}
 }
-
