@@ -1,0 +1,6 @@
+/* If you do not want to bother with SASS, simply put all your files into the main.css file */
+@import url(main.css);
+.fileupload-buttonbar .fileinput-button .form-group {
+  height: 0;
+  margin: 0;
+}

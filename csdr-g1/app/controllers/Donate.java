@@ -49,6 +49,12 @@ public class Donate extends Controller {
 		Donor donor = getDonorFromRequest(filledDonorForm);
 		Donation donation = getDonationFromRequest(filledDonationForm);
 		
+		System.out.println("Files:");
+		for(FilePart file : request().body().asMultipartFormData().getFiles()) {
+			System.out.println(file.getFilename());
+		}
+		System.out.println("------------");
+		
 		// check for form errors
 		if (filledDonorForm.hasErrors() || filledDonationForm.hasErrors()) {
 			return badRequest(form.render(filledDonorForm, filledDonationForm));
@@ -86,8 +92,8 @@ public class Donate extends Controller {
 		return ok(form.render(donorForm, donationForm));
 	}
 	
-	public static Result upload() 
-		{Http.MultipartFormData body = request().body().asMultipartFormData();
+	public static Result upload() {
+		Http.MultipartFormData body = request().body().asMultipartFormData();
 
 	    for(Http.MultipartFormData.FilePart file : body.getFiles()) {
 	    }

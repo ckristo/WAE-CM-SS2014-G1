@@ -4,3 +4,4 @@
 # ignore Play Framework folder
 play-*/
 
+node_modules
