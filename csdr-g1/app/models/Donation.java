@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,9 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import play.data.validation.Constraints.Required;
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
+import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.Min;
 import play.db.jpa.JPA;
 
 @Entity
@@ -47,6 +49,7 @@ public class Donation {
 	private String description;
 	
 	@Required
+	@Min(value=1)
 	private Integer number;
 	
 	public List<User> getUsers() {
@@ -140,17 +143,29 @@ public class Donation {
      * Return a page of Donations
      * @param page the page to display
      * @param pageSize the number of entries per page
-     * @param sortBy Donation property used for sorting
-     * @param order sort order (either asc or desc)
      * @param filter filter applied on the name column
+     * @param categories of the search
      */
-    public static DonationPage page(int page, int pageSize, String sortBy, String order, String filter) {
+    public static DonationPage page(int page, int pageSize, String filter, Map<String, String> categories) {
         if(page < 1) page = 1;
-        Long total = (Long)JPA.em().createQuery("SELECT count(d) FROM Donation d WHERE lower(d.label) LIKE ?", Long.class)
-	            .setParameter(1, "%" + filter.toLowerCase() + "%").getSingleResult();
-
-        List<Donation> data = JPA.em().createQuery("FROM Donation d WHERE lower(d.label) LIKE ? ORDER BY d." + sortBy + " " + order, Donation.class)
-				.setParameter(1, "%" + filter.toLowerCase() + "%").setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
+        
+        List<Integer> ids = new ArrayList<Integer>();        
+        if(categories.size() > 0) {
+        	for(String id : categories.keySet()) {
+        		if(!id.isEmpty()) {
+        			ids.add(Integer.valueOf(id));
+        		}
+        	}
+        }
+        else {
+        	ids.add(-1);
+        }
+        
+        Long total = (Long)JPA.em().createQuery("SELECT count(d) FROM Donation d WHERE lower(d.label) LIKE :filter AND d.category.id IN (:ids) ORDER BY d.label ASC", Long.class)
+	            .setParameter("filter", "%" + filter.toLowerCase() + "%").setParameter("ids", ids).getSingleResult();
+        
+        List<Donation> data = JPA.em().createQuery("FROM Donation d WHERE lower(d.label) LIKE :filter AND d.category.id IN (:ids) ORDER BY d.label ASC", Donation.class)
+				.setParameter("filter", "%" + filter.toLowerCase() + "%").setParameter("ids", ids).setFirstResult((page - 1) * pageSize).setMaxResults(pageSize).getResultList();
         
         return new DonationPage(data, total, page, pageSize);
     }

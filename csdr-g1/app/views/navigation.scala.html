@@ -9,14 +9,27 @@
 		        <span class="icon-bar"></span>
 	        </button>
 	        
-	        <a class="navbar-brand" href="#">@application_name</a>
+	        <a class="navbar-brand" href="@routes.Application.index">@application_name</a>
 	    </div> <!-- /.navbar-header -->
 	    <div class="collapse navbar-collapse">
 	    	<ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Home</a></li>
-		        <li><a href="#about">About</a></li>
-		        <li><a href="#contact">Contact</a></li>
+		        <li class="@activeLink("/donate")"><a href="@routes.Donate.form">Biete</a></li>
+		        <!-- TODO: [at]routes -->
+		        <li class="@activeLink("/donations")"><a href="/donations">Suche</a></li>
+		        <li class="@activeLink("/contact")"><a href="@routes.Application.contact">Kontakt</a></li>
 	        </ul> <!-- /.nav -->
+	        <div class="navbar-right">
+		    @if(session.containsKey("username")) {
+		    	<span class="navbar-text">Eingeloggt als: <strong>@session().get("username")</strong></span>&nbsp;
+		    	<a href="@routes.Login.logout" class="btn btn-sm btn-default navbar-btn" role="form">Logout</a>
+		    } else {
+		    	<a href="@routes.Login.form" class="btn btn-sm btn-primary navbar-btn" role="form">Login</a>
+		    }
+		    </div>
 	    </div> <!-- /.navbar-collapse -->
     </div> <!-- /.container -->
 </div> <!-- /.navbar -->
+
+@activeLink(currentPath:String) = @{
+if(request.path.equals(currentPath)) "active"
+}

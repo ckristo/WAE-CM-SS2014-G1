@@ -33,11 +33,15 @@ public class DonationPage {
     }
     
     public boolean hasNext() {
-        return (totalRowCount/pageSize) >= pageIndex;
+        return pageIndex < getAmountPages();
     }
     
     public int getAmountPages() {
-    	return (int)totalRowCount/pageSize;
+    	int value = Math.round(totalRowCount/pageSize);
+    	if((totalRowCount % pageSize) != 0) {
+    		value++;
+    	}
+    	return value;
     }
     
     public String getDisplayXtoYofZ() {

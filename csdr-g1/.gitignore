@@ -18,4 +18,4 @@ dist
 /.target
 .cache
 *.log
-
+*~
