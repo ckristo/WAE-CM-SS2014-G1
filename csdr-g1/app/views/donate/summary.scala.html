@@ -5,103 +5,127 @@
 
 @main(title = "Spende anbieten | Zusammenfassung") {
 	<h1>Spende anbieten</h1>
-	<h2>Zusammenfassung</h2>
 	<p class="alert alert-info">Bitte überprüfen Sie Ihre Eingabe auf Richtigkeit bevor Sie fortfahren.</p>
-	<div id="donationSummary" class="row">
-		<div class="col-xs-12 col-lg-6">
-			<table class="table table-responsive">
-				<tbody>
-					<tr class="head">
-						<th colspan="2"><h4>Angaben zur Spende</h4></th>
-					</tr>
-					<tr class="first">
-						<th>Bezeichnung</th>
-						<td>@donation.getLabel()</td>
-					</tr>
-					<tr>
-						<th>Beschreibung</th>
-						<td class="preformatted">@donation.getDescription()</td>
-					</tr>
-					<tr>
-						<th>Kategorie</th>
-						<td>@donation.getCategory().getName()</td>
-					</tr>
-					<tr>
-						<th>Anzahl</th>
-						<td>@donation.getNumber()</td>
-					</tr>
-					<tr>
-						<th>Transport</th>
-						<td>@donation.getTransportType().getName()</td>
-					</tr>
-					<tr class="donation-pictures-summary">
-						<th>Fotos</th>
-						<td>
-						@if(currentFiles != null) {
-							<ul id="donation-pictures">
-							@for(file <- currentFiles) {
-								<li>
-									<span class="preview">
-										<img src="@routes.Assets.at("files/tmp/" + session.get("tmpFolderName") + "/" + file.getTmpFilename())" alt="@file.getFilename()" alt="@file.getFilename()">
-									</span>
-									<span class="filename">
-										@file.getFilename()
-									</span>
-								</li>
-							}
-							</ul>
-			            } else {
-			            	Keine Fotos hinzugef&uuml;gt.
-			            }
-			            </td>
-					</tr>
-					<tr class="head">
-						<th colspan="2"><h4>Angaben zur Person</h4></th>
-					</tr>
-					<tr class="first">
-						<th>Name</th>
-						<td>@donor.getName()</td>
-					</tr>
-					<tr>
-						<th>Email-Adresse</th>
-						<td>@donor.getEmail()</td>
-					</tr>
-					@if(donor.getStreet() != null && !donor.getStreet().equals("")) {
-					<tr>
-						<th>Straße / Haus-Nr.</th>
-						<td>@donor.getStreet()</td>
-					</tr>
-					}
-					@if(donor.getZip() != null) {
-					<tr>
-						<th>PLZ</th>
-						<td>@donor.getZip()</td>
-					</tr>
-					}
-					@if(donor.getCity() != null && !donor.getCity().equals("")) {
-					<tr>
-						<th>Ort</th>
-						<td>@donor.getCity()</td>
-					</tr>
-					}
-				</tbody>
-			</table>
+	<fieldset>
+		<legend>Angaben zur Spende</legend>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Bezeichnung
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donation.getLabel
+			</div>
 		</div>
-	</div>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Beschreibung
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				<p class="preformatted">@donation.getDescription</p>
+			</div>
+		</div>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Kategorie
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donation.getCategory.getName
+			</div>
+		</div>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Anzahl
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donation.getNumber
+			</div>
+		</div>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Transport
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donation.getTransportType.getName
+			</div>
+		</div>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Fotos
+			</div>
+			<div class="col-xs-12 col-lg-6 donation-pictures-summary">
+			@if(currentFiles != null) {
+				<ul id="donation-pictures">
+				@for(file <- currentFiles) {
+					<li>
+						<span class="preview">
+							<img src="@routes.Assets.at("files/tmp/" + session.get("tmpFolderName") + "/" + file.getTmpFilename())" alt="@file.getFilename()" alt="@file.getFilename()">
+						</span>
+						<span class="filename">
+							@file.getFilename()
+						</span>
+					</li>
+				}
+				</ul>
+            } else {
+            	Keine Fotos hinzugef&uuml;gt.
+            }
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Angaben zur Person</legend>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Name
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donor.getName
+			</div>
+		</div>
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Email-Adresse
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donor.getEmail
+			</div>
+		</div>
+		@if(donor.getStreet != null && !donor.getStreet.equals("")) {
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Straße / Haus-Nr.
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donor.getStreet
+			</div>
+		</div>
+		}
+		@if(donor.getZip != null) {
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				PLZ
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donor.getZip
+			</div>
+		</div>
+		}
+		@if(donor.getCity != null && !donor.getCity.equals("")) {
+		<div class="row row-space">
+			<div class="col-xs-12 col-lg-3 summary-head">
+				Ort
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				@donor.getCity
+			</div>
+		</div>
+		}
+	</fieldset>
 	@* use a hidden form to pass on the input data *@
 	@helper.form(action = routes.Donate.submit, 'id -> "donationSummaryForm", 'enctype -> "multipart/form-data") {
-		@* Donor data *@
-		<input type="hidden" name="name" value="@donor.getName()">
-		<input type="hidden" name="email" value="@donor.getEmail()">
-		<input type="hidden" name="street" value="@donor.getStreet()">
-		<input type="hidden" name="phone" value="@donor.getPhone()">
-		<input type="hidden" name="zip" value="@donor.getZip()">
-		<input type="hidden" name="city" value="@donor.getCity()">
 		@* Donation data *@
 		<input type="hidden" name="label" value="@donation.getLabel()">
 		<input type="hidden" name="description" value="@donation.getDescription()">
-		<!-- <input type="hidden" name="files" value="@donation.getFiles()"> -->
-		
 		@if(currentFiles != null) {
 			@for((file, i) <- currentFiles.zipWithIndex) {
 				<input type="hidden" name="file_@i-filename" value="@file.getFilename()">
@@ -109,10 +133,16 @@
 			}
 			<input type="hidden" name="numberOfFiles" value="@currentFiles.size()">
 		}
-		
 		<input type="hidden" name="category.id" value="@donation.getCategory().getId()">
 		<input type="hidden" name="number" value="@donation.getNumber()">
 		<input type="hidden" name="transportType.id" value="@donation.getTransportType().getId()">
+		@* Donor data *@
+		<input type="hidden" name="name" value="@donor.getName()">
+		<input type="hidden" name="email" value="@donor.getEmail()">
+		<input type="hidden" name="street" value="@donor.getStreet()">
+		<input type="hidden" name="phone" value="@donor.getPhone()">
+		<input type="hidden" name="zip" value="@donor.getZip()">
+		<input type="hidden" name="city" value="@donor.getCity()">
 		<div class="actions">
 			<input type="submit" class="btn btn-default" name="back" value="&laquo; Zurück">
 			<input type="submit" class="btn btn-success" name="confirm" value="Abschließen">

@@ -52,6 +52,11 @@ body
 	margin:0 auto;
 	text-align:center;
 }
+.summary-head
+{
+	font-weight:bold;
+	margin-bottom:1em;
+}
 
 /* donate form */
 #donateForm .form-group .alert
