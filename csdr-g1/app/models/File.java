@@ -15,6 +15,7 @@ public class File {
 	private Donation donation;
 	
 	private String filename;
+	private String tmpFilename;
 	private String mimetype;
 	private String thumbnail;
 	private boolean is_first;
@@ -37,6 +38,12 @@ public class File {
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public String getTmpFilename() {
+		return tmpFilename;
+	}
+	public void setTmpFilename(String tmpFilename) {
+		this.tmpFilename = tmpFilename;
 	}
 	public String getMimetype() {
 		return mimetype;

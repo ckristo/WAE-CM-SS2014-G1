@@ -4,7 +4,12 @@ import helper.FileHelper;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -38,26 +43,43 @@ public class Donate extends Controller {
 	
 	@Transactional(readOnly=true)
 	public static Result form() {
-        return ok(form.render(donorForm, donationForm));
+        return ok(form.render(donorForm, donationForm, null));
     }
 	
 	@Transactional(readOnly=true)
 	public static Result summary() {
+		// Get files
+//		System.out.println("Files:");
+//		for(String key : request().body().asFormUrlEncoded().keySet()) {
+//			if(key.startsWith("file[")) {
+//				System.out.println(key);
+//			}
+//		}
+//		System.out.println("------------");
+		
 		Form<Donor> filledDonorForm = donorForm.bindFromRequest("name", "email", "street", "phone", "zip", "city");
 		Form<Donation> filledDonationForm = donationForm.bindFromRequest("label", "pickUpDate", "description", "files", "number");
 		
 		Donor donor = getDonorFromRequest(filledDonorForm);
 		Donation donation = getDonationFromRequest(filledDonationForm);
 		
-		System.out.println("Files:");
-		for(FilePart file : request().body().asMultipartFormData().getFiles()) {
-			System.out.println(file.getFilename());
+		// Get files
+		DynamicForm dynamicForm = Form.form().bindFromRequest();
+		
+		Integer numberOfFiles = new Integer(dynamicForm.get("numberOfFiles"));
+		List<models.File> files = new ArrayList<models.File>();
+		for(int i = 0;i<numberOfFiles;i++) {
+			String filename = dynamicForm.field("file_" + i + "-filename").value();
+			String tmpFilename = dynamicForm.field("file_" + i + "-tmpname").value();
+			models.File file = new models.File();
+			file.setFilename(filename);
+			file.setTmpFilename(tmpFilename);
+			files.add(file);
 		}
-		System.out.println("------------");
 		
 		// check for form errors
 		if (filledDonorForm.hasErrors() || filledDonationForm.hasErrors()) {
-			return badRequest(form.render(filledDonorForm, filledDonationForm));
+			return badRequest(form.render(filledDonorForm, filledDonationForm, files));
 		}
 		
 		return ok(summary.render(donor, donation));
@@ -74,12 +96,12 @@ public class Donate extends Controller {
 		
 		// check for form errors
 		if (filledDonorForm.hasErrors() || filledDonationForm.hasErrors()) {
-			return badRequest(form.render(filledDonorForm, filledDonationForm));
+			return badRequest(form.render(filledDonorForm, filledDonationForm, null));
 		}
 		
 		// if user didn't choose confirm, go back to donate form
 		if (dynamicForm.field("confirm").value() == null) {
-			return ok(form.render(filledDonorForm, filledDonationForm));
+			return ok(form.render(filledDonorForm, filledDonationForm, null));
 		}
 		
 		// persist data
@@ -89,17 +111,40 @@ public class Donate extends Controller {
 		
 		flash("success", "success");
 		
-		return ok(form.render(donorForm, donationForm));
+		return ok(form.render(donorForm, donationForm, null));
 	}
 	
 	public static Result upload() {
-		Http.MultipartFormData body = request().body().asMultipartFormData();
+		String tmpFolderName = session("tmpFolderName");
+		SecureRandom random = new SecureRandom();
+		if(tmpFolderName == null) {
+			tmpFolderName = new BigInteger(130, random).toString(32);
+			session("tmpFolderName", tmpFolderName);
+		}
+		System.out.println("tmpFolderName: " + tmpFolderName);
 
-	    for(Http.MultipartFormData.FilePart file : body.getFiles()) {
+		Http.MultipartFormData body = request().body().asMultipartFormData();
+		if(body.getFiles().size() > 1) { // Ajax upload only can handle one file per request
+			return badRequest();
+		}
+		ObjectNode jsonFile = Json.newObject();
+		for(Http.MultipartFormData.FilePart file : body.getFiles()) {
+			String destPath = "/vagrant/csdr-g1/public/files/tmp/" + tmpFolderName + "/";
+			String ext = file.getFilename().substring(file.getFilename().lastIndexOf("."));
+			String randomFilename = new BigInteger(130, random).toString(32);
+			randomFilename = randomFilename + ext;
+			
+			if(FileHelper.moveFile(file.getFile(), destPath, randomFilename)) {
+				jsonFile.put("filename", file.getFilename());
+				jsonFile.put("randomFilename", randomFilename);
+			} else {
+				System.out.println("Failed to move file '" + file.getFilename() + "' to '" + destPath + randomFilename + "'.");
+				return badRequest();
+			}
 	    }
 		
 		ObjectNode result = Json.newObject();
-		result.put("testKey", "testValue");
+		result.put("file", jsonFile);
 		return ok(result);
 	}
 	
@@ -246,7 +291,7 @@ public class Donate extends Controller {
 				System.out.println("Moving file " + file.getFile().getCanonicalPath());
 				//@TODO: Implement a random filename generation strategy to avoid files with the same name being overridden (suggestion: /app/files/1/2/3/filename.ext, where the donation's id is 123)
 				//@TODO: Store the root file path (/vagrant/csdr-g1/app/files/) in a constant or as a config property for better maintainability
-				if(!FileHelper.moveFile(file.getFile(), new File("/vagrant/csdr-g1/app/files/" + file.getFilename()))) {
+				if(!FileHelper.moveFile(file.getFile(), "/vagrant/csdr-g1/app/files/" + file.getFilename())) {
 					return false;
 				}
 			} catch (IOException ioe) {

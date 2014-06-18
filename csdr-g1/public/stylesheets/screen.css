@@ -30,6 +30,8 @@ ul#donation-pictures li {
 }
 ul#donation-pictures li img, ul#donation-pictures li canvas {
   display: block;
+  max-width: 80px;
+  max-height: 60px;
   margin: 0 auto 10px auto;
 }
 ul#donation-pictures li .filename {

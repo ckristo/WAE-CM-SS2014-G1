@@ -8,13 +8,34 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class FileHelper {
-
-	public static boolean moveFile(File src, File dest) {
+	
+	public static boolean moveFile(File src, String destPath) {
+		return moveFile(src, destPath, null);
+	}
+	
+	public static boolean moveFile(File src, String destPath, String destFilename) {
 		InputStream inStream = null;
 		OutputStream outStream = null;
-
+		
+		File destinationFolder = new File(destPath);
+		if(!destinationFolder.exists()) {
+			try {
+				destinationFolder.mkdir();
+			} catch (SecurityException se) {
+				System.out.println("Failed to create directory " + destPath);
+				return false;
+			}
+		}
+		
+		String filepath = null;
+		if(destFilename == null) {
+			filepath = destPath + src.getName();
+		} else {
+			filepath = destPath + destFilename;
+		}
+		
+		File dest = new File(filepath);
 		try {
-
 			inStream = new FileInputStream(src);
 			outStream = new FileOutputStream(dest);
 

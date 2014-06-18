@@ -13,6 +13,8 @@ ul#donation-pictures {
 		
 		img, canvas {
 			display: block;
+			max-width: 80px;
+			max-height: 60px;
 			margin: 0 auto 10px auto;
 		}
 		

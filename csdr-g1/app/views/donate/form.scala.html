@@ -1,4 +1,4 @@
-@(donorForm: play.data.Form[Donor], donationForm: play.data.Form[Donation])
+@(donorForm: play.data.Form[Donor], donationForm: play.data.Form[Donation], currentFiles: List[models.File])
 
 @import helper._
 @import play.api.Play
@@ -41,8 +41,14 @@
 	<!-- The template to display files available for upload -->
 	<script id="template-upload" type="text/x-tmpl">
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
-	<li class="template-upload fade">
-		<span class="preview"></span>
+	<li class="template-upload">
+		{% if (file.tmpUrl) { %}
+			<span class="preview">
+				<img src="{%=file.tmpUrl%}" alt="{%=file.name%}">
+			</span>
+		{% } else { %}
+			<span class="preview"></span>
+		{% } %}
 		<span class="filename">
 			{%=file.name%}
 			<button class="btn btn-danger"><i class="glyphicon glyphicon-ban-circle"></i></button>
@@ -92,6 +98,12 @@
         </td>
     </tr>
 	{% } %}
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			initFileUpload("@routes.Donate.upload()");
+		});
 	</script>
 	<!-- *********************** -->
 	<!-- * /jQuery File Upload * -->
@@ -178,6 +190,29 @@
    		<div class="row fileupload-buttonbar">
             <div class="col-lg-9">
             	<label>Fotos:</label>
+            	Previous request:
+            	@if(currentFiles != null) {
+            		<script>
+            			var tmpFiles = {"files": [
+			            	@for(file <- currentFiles) {
+			            		
+			            		{
+			            			"name": "@file.getFilename()",
+			            			"tmpUrl": "@routes.Assets.at("files/tmp/" + session.get("tmpFolderName") + "/" + file.getTmpFilename())"
+			            		},
+			            	}
+	            		]};
+	            		$(document).ready(function() {
+	            			document.getElementById("donation-pictures").innerHTML = tmpl("template-upload", tmpFiles);
+	            			registerCancelButtonEventHandler();
+	            			
+	            			@for(file <- currentFiles) {
+	            				addFileInput("@file.getFilename()", "@file.getTmpFilename()");
+	            			}
+	            		});
+	            	</script>
+            	}
+            	
        			<ul id="donation-pictures" class="files clearfix"></ul>
             	
                 <!-- The fileinput-button span is used to style the file input field as button -->
@@ -293,6 +328,8 @@
 		<a href="@routes.Donate.form" class="btn btn-default">Zurücksetzen</a>
 		<input type="submit" class="btn btn-primary" value="Weiter &raquo;">
 	</div>
+	
+	<input type="text" name="numberOfFiles" value="0">
 	}
 }
 

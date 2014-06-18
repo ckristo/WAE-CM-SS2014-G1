@@ -1,26 +1,37 @@
 /** *************** **/
 /** * File Upload * **/
 /** *************** **/
-$(document).ready(function () {
-    $("#donateForm").fileupload({
-	    url: '@routes.Donate.upload()',
+var donationImageCount = 0;
+function initFileUpload(actionUrl) {
+	$("#donateForm").fileupload({
+	    url: actionUrl,
         sequentialUploads: true,
-        autoUpload: false,
+        autoUpload: true,
         dataType: 'json',
     	maxFileSize: 5000000,
     	acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+    	previewCanvas: false,
     	added: function (e, data) {
-    		$("li.template-upload .btn-danger").click(function(event) {
-    			event.preventDefault();
-    			$(this).parents("li").fadeOut('fast');
-    			return false; // prevent form submission
-    		});
+    		registerCancelButtonEventHandler();
         },
         done: function (e, data) {
-	        alert(data);
-            /* $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            }); */
+        	var file = data.result.file;
+        	addFileInput("" + file.filename, "" + file.randomFilename);
         }
     });
-});
+}
+
+function registerCancelButtonEventHandler() {
+	$("li.template-upload .btn-danger").click(function(event) {
+		event.preventDefault();
+		$(this).parents("li").fadeOut('fast');
+		return false; // prevent form submission
+	});
+}
+
+function addFileInput(filename, randomFilename) {
+	$("#donateForm").append('<input type="text" name="file_' + donationImageCount + '-filename" value="' + filename + '">');
+	$("#donateForm").append('<input type="text" name="file_' + donationImageCount + '-tmpname" value="' + randomFilename + '">');
+    donationImageCount++;
+	$("input[name='numberOfFiles']").val(donationImageCount);
+}
