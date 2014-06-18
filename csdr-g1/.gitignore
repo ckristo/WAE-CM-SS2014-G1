@@ -18,3 +18,4 @@ tmp
 .cache
 *.log
 *~
+!public/files/tmp
