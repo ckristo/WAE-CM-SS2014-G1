@@ -65,24 +65,14 @@ public class Donate extends Controller {
 		
 		// Get files
 		DynamicForm dynamicForm = Form.form().bindFromRequest();
-		
-		Integer numberOfFiles = new Integer(dynamicForm.get("numberOfFiles"));
-		List<models.File> files = new ArrayList<models.File>();
-		for(int i = 0;i<numberOfFiles;i++) {
-			String filename = dynamicForm.field("file_" + i + "-filename").value();
-			String tmpFilename = dynamicForm.field("file_" + i + "-tmpname").value();
-			models.File file = new models.File();
-			file.setFilename(filename);
-			file.setTmpFilename(tmpFilename);
-			files.add(file);
-		}
+		List<models.File> files = getFiles(dynamicForm);
 		
 		// check for form errors
 		if (filledDonorForm.hasErrors() || filledDonationForm.hasErrors()) {
 			return badRequest(form.render(filledDonorForm, filledDonationForm, files));
 		}
 		
-		return ok(summary.render(donor, donation));
+		return ok(summary.render(donor, donation, files));
 	}
 	
 	@Transactional
@@ -94,20 +84,27 @@ public class Donate extends Controller {
 		Donor donor = getDonorFromRequest(filledDonorForm);
 		Donation donation = getDonationFromRequest(filledDonationForm);
 		
+		// Get files
+		List<models.File> files = getFiles(dynamicForm);
+		
 		// check for form errors
 		if (filledDonorForm.hasErrors() || filledDonationForm.hasErrors()) {
-			return badRequest(form.render(filledDonorForm, filledDonationForm, null));
+			return badRequest(form.render(filledDonorForm, filledDonationForm, files));
 		}
 		
 		// if user didn't choose confirm, go back to donate form
 		if (dynamicForm.field("confirm").value() == null) {
-			return ok(form.render(filledDonorForm, filledDonationForm, null));
+			return ok(form.render(filledDonorForm, filledDonationForm, files));
 		}
 		
 		// persist data
 		donation.setDonor(donor);
 		JPA.em().persist(donor);
 		JPA.em().persist(donation);
+		
+		// Add files to donation
+		moveFilesToFinalDestination(donation, files);
+		donation.setFiles(files); // Donation has been persisted and should be watched -> calling set automatically updates the corresponding database entry
 		
 		flash("success", "success");
 		
@@ -146,6 +143,40 @@ public class Donate extends Controller {
 		ObjectNode result = Json.newObject();
 		result.put("file", jsonFile);
 		return ok(result);
+	}
+	
+	public static List<models.File> getFiles(DynamicForm dynamicForm) {
+		Integer numberOfFiles = new Integer(dynamicForm.get("numberOfFiles"));
+		List<models.File> files = new ArrayList<models.File>();
+		for(int i = 0;i<numberOfFiles;i++) {
+			String filename = dynamicForm.field("file_" + i + "-filename").value();
+			String tmpFilename = dynamicForm.field("file_" + i + "-tmpname").value();
+			models.File file = new models.File();
+			file.setFilename(filename);
+			file.setTmpFilename(tmpFilename);
+			files.add(file);
+		}
+		
+		return files;
+	}
+	
+	@Transactional
+	public static boolean moveFilesToFinalDestination(Donation donation, List<models.File> files) {
+		String srcPath = "/vagrant/csdr-g1/public/files/tmp/" + session("tmpFolderName") + "/";
+		String destPath = "/vagrant/csdr-g1/public/files/" + donation.getId() + "/";
+		for(models.File file : files) {
+			File src = new File(srcPath + file.getTmpFilename());
+			if(FileHelper.moveFile(src, destPath)) {
+				file.setDonation(donation);
+				JPA.em().persist(file);
+				
+				src.delete();
+			} else {
+				System.out.println("Failed to move file '" + file.getFilename() + "' to '" + destPath + file.getFilename() + "'.");
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**

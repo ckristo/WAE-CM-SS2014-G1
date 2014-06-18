@@ -190,7 +190,6 @@
    		<div class="row fileupload-buttonbar">
             <div class="col-lg-9">
             	<label>Fotos:</label>
-            	Previous request:
             	@if(currentFiles != null) {
             		<script>
             			var tmpFiles = {"files": [
@@ -227,19 +226,6 @@
 						'size -> 60
 					)
                 </span>
-                <button type="submit" class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
-                </button>
-                <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
-                </button>
-                <button type="button" class="btn btn-danger delete">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
                 <!-- The global file processing state -->
                 <span class="fileupload-process"></span>
             </div>
@@ -329,7 +315,7 @@
 		<input type="submit" class="btn btn-primary" value="Weiter &raquo;">
 	</div>
 	
-	<input type="text" name="numberOfFiles" value="0">
+	<input type="hidden" name="numberOfFiles" value="0">
 	}
 }
 

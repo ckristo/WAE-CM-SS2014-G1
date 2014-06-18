@@ -1,4 +1,4 @@
-@(donor: models.Donor, donation: models.Donation)
+@(donor: models.Donor, donation: models.Donation, currentFiles: List[models.File])
 
 @import helper._
 @import play.api.Play
@@ -34,7 +34,27 @@
 						<th>Transport</th>
 						<td>@donation.getTransportType().getName()</td>
 					</tr>
-					<!-- TODO: Fotos -->
+					<tr class="donation-pictures-summary">
+						<th>Fotos</th>
+						<td>
+						@if(currentFiles != null) {
+							<ul id="donation-pictures">
+							@for(file <- currentFiles) {
+								<li>
+									<span class="preview">
+										<img src="@routes.Assets.at("files/tmp/" + session.get("tmpFolderName") + "/" + file.getTmpFilename())" alt="@file.getFilename()" alt="@file.getFilename()">
+									</span>
+									<span class="filename">
+										@file.getFilename()
+									</span>
+								</li>
+							}
+							</ul>
+			            } else {
+			            	Keine Fotos hinzugef&uuml;gt.
+			            }
+			            </td>
+					</tr>
 					<tr class="head">
 						<th colspan="2"><h4>Angaben zur Person</h4></th>
 					</tr>
@@ -81,6 +101,15 @@
 		<input type="hidden" name="label" value="@donation.getLabel()">
 		<input type="hidden" name="description" value="@donation.getDescription()">
 		<!-- <input type="hidden" name="files" value="@donation.getFiles()"> -->
+		
+		@if(currentFiles != null) {
+			@for((file, i) <- currentFiles.zipWithIndex) {
+				<input type="hidden" name="file_@i-filename" value="@file.getFilename()">
+				<input type="hidden" name="file_@i-tmpname" value="@file.getTmpFilename()">
+			}
+			<input type="hidden" name="numberOfFiles" value="@currentFiles.size()">
+		}
+		
 		<input type="hidden" name="category.id" value="@donation.getCategory().getId()">
 		<input type="hidden" name="number" value="@donation.getNumber()">
 		<input type="hidden" name="transportType.id" value="@donation.getTransportType().getId()">

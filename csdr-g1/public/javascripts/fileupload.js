@@ -30,8 +30,8 @@ function registerCancelButtonEventHandler() {
 }
 
 function addFileInput(filename, randomFilename) {
-	$("#donateForm").append('<input type="text" name="file_' + donationImageCount + '-filename" value="' + filename + '">');
-	$("#donateForm").append('<input type="text" name="file_' + donationImageCount + '-tmpname" value="' + randomFilename + '">');
+	$("#donateForm").append('<input type="hidden" name="file_' + donationImageCount + '-filename" value="' + filename + '">');
+	$("#donateForm").append('<input type="hidden" name="file_' + donationImageCount + '-tmpname" value="' + randomFilename + '">');
     donationImageCount++;
 	$("input[name='numberOfFiles']").val(donationImageCount);
 }
