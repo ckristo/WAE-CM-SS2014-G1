@@ -93,9 +93,11 @@
 			    		</div>
 			    		<div class="row row-space border-top-thin border-bottom-thin">
 			    			<div class="col-xs-12 col-lg-12 col-md-12">
-			    				<span class="category-small">@donation.getCategory().getName()</span>
+			    				<span class="category-small">@donation.getCategory.getName</span>
 			    				<span class="city-small">
-			    					@@ @{donation.getDonor.getZip+" "+donation.getDonor.getCity}
+			    					@if(donation.getDonor.getZip != null && donation.getDonor.getCity != null) {
+			    						@@ @{donation.getDonor.getZip+" "+donation.getDonor.getCity}
+			    					}
 			    				</span>
 			    			</div>
 			    		</div>
