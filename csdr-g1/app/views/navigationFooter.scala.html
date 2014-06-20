@@ -1,0 +1,13 @@
+@(application_name: String)
+<ul class="footer-nav col-xs-6 col-lg-4">
+	<li><a class="navbar-brand" href="@routes.Application.index">@application_name</a></li>
+	<li class="@activeLink("/donate")"><a href="@routes.Donate.form">Biete</a></li>
+	<!-- TODO: [at]routes -->
+	<li class="@activeLink("/donations")"><a href="/donations">Suche</a></li>
+	<!-- <li class="@activeLink("/contact")"><a href="@routes.Application.contact">Kontakt</a></li> -->
+	<li><a href="#">Kontakt</a></li>
+</ul> <!-- /.footer-nav -->
+
+@activeLink(currentPath:String) = @{
+if(request.path.equals(currentPath)) "active"
+}

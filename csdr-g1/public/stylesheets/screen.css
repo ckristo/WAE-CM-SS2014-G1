@@ -1,5 +1,4 @@
-/* If you do not want to bother with SASS, simply put all your files into the main.css file */
-@import url(main.css);
+/* If you do not want to bother with SASS, simply put all your styles into the main.css file */
 /** Clearfix hack **/
 .clearfix:before,
 .clearfix:after {
@@ -17,6 +16,55 @@
 }
 
 /** $Colors **/
+/** $Color Assignments **/
+html, body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -150px;
+  /* equal to footer height */
+  padding-bottom: 50px;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.footer, .page-wrap:after {
+  height: 150px;
+  /* .push must be the same height as footer */
+}
+
+.footer {
+  padding: 20px 0;
+  background: #3c3c3c;
+}
+
+/** $Colors **/
+/** $Color Assignments **/
+/** $Footer-Navigation **/
+ul.footer-nav {
+  list-style-type: none;
+}
+ul.footer-nav li {
+  display: block;
+}
+ul.footer-nav li a {
+  color: #999999;
+}
+ul.footer-nav li a:hover {
+  color: white;
+}
+ul.footer-nav li a.navbar-brand {
+  padding: 0;
+  float: none;
+}
+
+/** $Colors **/
+/** $Color Assignments **/
 /** $File Upload **/
 ul#donation-pictures {
   padding: 0;

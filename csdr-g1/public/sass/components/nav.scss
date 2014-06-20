@@ -1,0 +1,23 @@
+@import "base/variables";
+
+/** $Footer-Navigation **/
+ul.footer-nav {
+	list-style-type: none;
+	
+	li {
+		display: block;
+		
+		a {
+			color: $footer-nav-link-color;
+		}
+		
+		a:hover {
+			color: $footer-nav-link-hover-color;
+		}
+		
+		a.navbar-brand {
+			padding: 0;
+			float: none;
+		}
+	}
+}

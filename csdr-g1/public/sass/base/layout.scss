@@ -1,0 +1,21 @@
+@import "base/variables";
+
+html, body {
+	height: 100%;
+}
+.page-wrap {
+	min-height: 100%;
+	margin-bottom: -150px; /* equal to footer height */
+	padding-bottom: 50px;
+}
+.page-wrap:after {
+	content: "";
+	display: block;
+}
+.footer, .page-wrap:after {
+	height: 150px; /* .push must be the same height as footer */
+}
+.footer {
+	padding: 20px 0;
+	background: $anthrazit;
+}
