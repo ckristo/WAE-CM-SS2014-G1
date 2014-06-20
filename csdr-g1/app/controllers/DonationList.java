@@ -22,7 +22,7 @@ import views.html.list.*;
 
 public class DonationList extends Controller {
 
-	private static Map<String, String> categoryMap = new LinkedHashMap<String, String>();
+	private static Map<String, String> categoryMap = new LinkedHashMap<>();
 	private static String filter = "";
 
 	private static final int PAGE_SIZE = 4;
@@ -53,67 +53,75 @@ public class DonationList extends Controller {
 	@Security.Authenticated(Secured.class)
 	@Transactional(readOnly = true)
 	public static Result addCategory() {
+		// get category id
 		DynamicForm bindedForm = Form.form().bindFromRequest();
-
+		int category_id;
 		try {
-			int category_id = Integer.parseInt(bindedForm.get("category"));
-			Category category = Category.findById(category_id);
-			if (category != null) {
-				categoryMap
-						.put(category.getId().toString(), category.getName());
-				categoryMap = sortByValues(categoryMap);
-			}
-		} catch (NumberFormatException ex) {
-
+			category_id = Integer.parseInt(bindedForm.get("category"));
 		}
-
-		return ok(list.render(Donation.page(0, PAGE_SIZE, filter, categoryMap),
-				filter, categoryMap));
-	}
-
-	@Security.Authenticated(Secured.class)
-	@Transactional(readOnly = true)
-	public static Result removeCategory() {
-		DynamicForm bindedForm = Form.form().bindFromRequest();
-		try {
-			categoryMap.remove(bindedForm.get("category"));
-			categoryMap = sortByValues(categoryMap);
-		} catch (Exception ex) {
-
+		catch (NumberFormatException e) {
+			return badRequest(list.render(
+					Donation.page(0, PAGE_SIZE, filter, categoryMap), filter,
+					categoryMap));
 		}
-
-		return ok(list.render(Donation.page(0, PAGE_SIZE, filter, categoryMap),
-				filter, categoryMap));
-	}
-
-	@Security.Authenticated(Secured.class)
-	@Transactional(readOnly = true)
-	public static Result needDonation() {
 		
+		// load category
+		Category category = Category.findById(category_id);
+		if (category == null) {
+			return badRequest(list.render(
+					Donation.page(0, PAGE_SIZE, filter, categoryMap), filter,
+					categoryMap));
+		}
+		
+		// add to selected categories
+		categoryMap.put(category.getId().toString(), category.getName());
+		categoryMap = sortByValues(categoryMap);
+		
+		return ok(list.render(Donation.page(0, PAGE_SIZE, filter, categoryMap),
+				filter, categoryMap));
+	}
+
+	@Security.Authenticated(Secured.class)
+	@Transactional(readOnly = true)
+	public static Result removeCategory(String id) {
+		if (categoryMap.size() > 1) {
+			categoryMap.remove(id);
+			categoryMap = sortByValues(categoryMap);
+		}
+		else {
+			flash("warning", "warning-1");
+		}
+		return ok(list.render(Donation.page(0, PAGE_SIZE, filter, categoryMap),
+				filter, categoryMap));
+	}
+
+	@Security.Authenticated(Secured.class)
+	@Transactional(readOnly = true)
+	public static Result needDonation(Integer id) {
 		flash("success", "success");
 		return ok(list.render(Donation.page(0, PAGE_SIZE, filter, categoryMap), filter, categoryMap));
 	}
 	
-	private static LinkedHashMap<String, String> sortByValues(
-			Map<String, String> map) {
-
-		List<Entry<String, String>> list = new LinkedList<Entry<String, String>>(
-				map.entrySet());
+	private static LinkedHashMap<String, String> sortByValues(Map<String, String> map) {
+		// convert map to linked list
+		List<Entry<String, String>> list = new LinkedList<>(map.entrySet());
+		
+		// sort linked list
 		Collections.sort(list, new Comparator<Entry<String, String>>() {
-			public int compare(Entry<String, String> o1,
-					Entry<String, String> o2) {
+			public int compare(Entry<String, String> o1, Entry<String, String> o2) {
 				Map.Entry<String, String> entry1 = (Map.Entry<String, String>) o1;
 				Map.Entry<String, String> entry2 = (Map.Entry<String, String>) o2;
 				return entry1.getValue().compareTo(entry2.getValue());
 			}
 		});
 
-		LinkedHashMap<String, String> sortedHashMap = new LinkedHashMap<String, String>();
+		// convert list back to map
+		LinkedHashMap<String, String> sortedHashMap = new LinkedHashMap<>();
 		for (Iterator<Entry<String, String>> it = list.iterator(); it.hasNext();) {
-			Map.Entry<String, String> entry = (Map.Entry<String, String>) it
-					.next();
+			Map.Entry<String, String> entry = (Map.Entry<String, String>) it.next();
 			sortedHashMap.put(entry.getKey(), entry.getValue());
 		}
+		
 		return sortedHashMap;
 	}
 

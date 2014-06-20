@@ -12,7 +12,7 @@
         <div class="alert alert-success">
 			<strong>Vielen Dank!</strong><br/>Ihr Bedarf wurde vermerkt und die Spende wird angefordert.
    	 	</div>
-    } 
+    }
     <div class="row">
 	    <div id="actions" class="col-xs-12 col-lg-3 col-md-3">  
 	    	<fieldset>
@@ -28,36 +28,36 @@
 	        	}
 	        	<br/>
 	        	<label for="categorySelectGroup">Kategorie:</label>
-	        	@helper.form(action=routes.DonationList.removeCategory()) {   	
-			        @for((categoryKey, categoryName) <- selectedCategoryMap) {	    
-			        	@if(!categoryKey.isEmpty()) {    	
-		        		<div id="donationList_selectedCategories" class="row">
-		        			<div class="col-xs-10 col-lg-10 col-md-10">
-			        			@categoryName
-			        			<input type="hidden" name="category" value="@categoryKey">
-		        			</div>
-		        			<div class="col-xs-2 col-lg-2 col-md-2">	        	
-			        			<button type="submit" class="btn btn-link btn-xs brand-danger" style="color: rgb(212, 106, 64);">
-				  					<span class="glyphicon glyphicon-minus-sign"></span>
-								</button>
-							</div>
-						</div>		        		
-				        }
+		        @for((categoryKey, categoryName) <- selectedCategoryMap) {
+		        	@if(!categoryKey.isEmpty()) {
+	        		<div id="donationList_selectedCategories_@categoryKey" class="row">
+	        			<div class="col-xs-10 col-lg-10 col-md-10">
+		        			@categoryName
+		        			<input type="hidden" name="category" value="@categoryKey">
+	        			</div>
+	        			<div class="col-xs-2 col-lg-2 col-md-2">        	
+		        			@if(selectedCategoryMap.size > 1) {
+		        			<a href="@routes.DonationList.removeCategory(categoryKey)" class="btn btn-link btn-xs brand-danger" style="color: rgb(212, 106, 64);">
+			  					<span class="glyphicon glyphicon-minus-sign"></span>
+							</a>
+							}
+						</div>
+					</div>		        		
 			        }
-	        	}
+		        }
 	        	@if(selectedCategoryMap.size < Enumerated.Category.options.size) {
 		        	@helper.form(action=routes.DonationList.addCategory) {
 		        	<div class="row">
-		        		<div class="col-xs-9 col-lg-9 col-md-9">
+		        		<div class="col-xs-10 col-lg-10 col-md-10">
 		       				<select id="categorySelect" name="category" class="form-control" >
 			         	   		@for((id, name) <- Enumerated.Category.options) {
 			         	   			@if(!selectedCategoryMap.contains(id)) {
 										<option value="@id">@name</option>	
-									}	
+									}
 								}
 							</select>
 		       			</div>
-		       			<div class="col-xs-3 col-lg-3 col-md-3">
+		       			<div class="col-xs-2 col-lg-2 col-md-2">
 		        			<button type="submit" class="btn btn-link btn-xs">
 						  		<span class="glyphicon glyphicon-plus-sign"></span>
 							</button>
@@ -80,7 +80,7 @@
 		    	@for(donation <- currentPage.getList) {
 		    	<div class="panel panel-default">
 		    		<div class="panel-heading">
-		    			<h3 class="panel-title">@donation.getLabel()</h3>
+		    			<h3 class="panel-title">@donation.getLabel</h3>
 		    		</div>
 		    		<div class="panel-body">
 			    		<div class="row">
@@ -104,10 +104,7 @@
 			    				<span class="interested-people"><strong>@donation.getUsers().size()</strong> Personen haben bereits Bedarf f&uuml;r diese Spende bekundet</span>
 			    			</div>
 			    			<div class="col-xs-5 col-lg-4 col-md-4 interest-button">
-			    			@helper.form(action=routes.DonationList.needDonation) {
-			    				<input type="hidden" name="donationId" value="@donation.getId()">
-			    				<button type="submit" class="btn btn-sm btn-primary">Brauch Ich!</button>
-			    			}
+			    				<a href="@routes.DonationList.needDonation(donation.getId)" class="btn btn-sm btn-primary">Brauch Ich!</a>
 			    			</div>
 			    		</div>
 			    	</div>
