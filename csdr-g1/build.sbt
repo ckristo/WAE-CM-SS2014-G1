@@ -2,6 +2,10 @@ name := "csdr-g1"
 
 version := "1.0-SNAPSHOT"
 
+javaOptions in Test ++= Seq(
+  "-Dconfig.file=conf/application-test.conf"
+)
+
 libraryDependencies ++= Seq(
   javaJdbc,
   javaJpa, 
