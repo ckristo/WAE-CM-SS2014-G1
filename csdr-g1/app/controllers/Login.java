@@ -8,7 +8,20 @@ import play.mvc.Result;
 import views.html.*;
 
 public class Login extends Controller {
-
+	
+	/**
+	 * A simple model for login credentials.
+	 */
+	public static class LoginModel {
+		@Required
+		public String username;
+		
+		@Required
+		public String password;
+		
+		public String redirectUrl = "";
+	}
+	
 	static Form<Login.LoginModel> loginForm = Form.form(Login.LoginModel.class);
 
 	public static Result form() {
@@ -23,20 +36,27 @@ public class Login extends Controller {
 	 * when going productive. */
 	public static Result login() {
 		Form<Login.LoginModel> formLm = loginForm.bindFromRequest("username",
-				"password");
+				"password", "redirectUrl");
 
 		if (formLm.hasErrors()) {
 			flash("failed", "failed");
 			return badRequest(login.render(loginForm));
 		}
+		
+		LoginModel lm = formLm.get();
 
-		// STATIC PASSWORD COMPARISON
-		if (formLm.field("username").value().equals("waecm")
-				&& formLm.field("password").value().equals("waecm")) {
-			session().clear();
+		// STATIC PASSWORD COMPARISON (User: waecm, Password: waecm)
+		if (lm.username.equals("waecm")
+				&& lm.password.equals("waecm")) {
 	        session("username", formLm.field("username").value());
+	        
+	        // check redirectUrl
+	        if (!lm.redirectUrl.equals("")) {
+	        	return redirect(lm.redirectUrl);
+	        }
 			return redirect(routes.Application.index());
-		} else {
+		} 
+		else {
 			flash("wrongCredentials", "failed");
 		}
 
@@ -46,12 +66,5 @@ public class Login extends Controller {
 	public static Result logout() {
 		session().clear();
 		return redirect(routes.Application.index());
-	}
-
-	public static class LoginModel {
-		@Required
-		public String username;
-		@Required
-		public String password;
 	}
 }

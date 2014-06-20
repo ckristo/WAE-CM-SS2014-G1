@@ -7,11 +7,8 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import models.Donation;
@@ -118,7 +115,6 @@ public class Donate extends Controller {
 			tmpFolderName = new BigInteger(130, random).toString(32);
 			session("tmpFolderName", tmpFolderName);
 		}
-		System.out.println("tmpFolderName: " + tmpFolderName);
 
 		Http.MultipartFormData body = request().body().asMultipartFormData();
 		if(body.getFiles().size() > 1) { // Ajax upload only can handle one file per request
