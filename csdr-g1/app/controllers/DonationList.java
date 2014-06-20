@@ -94,6 +94,18 @@ public class DonationList extends Controller {
 		return ok(list.render(Donation.page(0, PAGE_SIZE, filter, categoryMap),
 				filter, categoryMap));
 	}
+	
+	@Security.Authenticated(Secured.class)
+	@Transactional(readOnly = true)
+	public static Result resetFilters() {
+	
+		categoryMap = Category.options();
+		filter = "";
+		
+		return ok(list.render(
+				Donation.page(0, PAGE_SIZE, filter, categoryMap), filter,
+				categoryMap));
+	}
 
 	@Security.Authenticated(Secured.class)
 	@Transactional(readOnly = true)
