@@ -1,5 +1,4 @@
 /* If you do not want to bother with SASS, simply put all your files into the main.css file */
-@import url(main.css);
 /** Clearfix hack **/
 .clearfix:before,
 .clearfix:after {
@@ -14,6 +13,33 @@
 .clearfix {
   zoom: 1;
   /* For IE 6/7 (trigger hasLayout) */
+}
+
+/** $Colors **/
+html, body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -150px;
+  /* equal to footer height */
+  padding-bottom: 50px;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.footer, .page-wrap:after {
+  height: 150px;
+  /* .push must be the same height as footer */
+}
+
+.footer {
+  padding: 0 20px;
+  background: #3c3c3c;
 }
 
 /** $Colors **/
