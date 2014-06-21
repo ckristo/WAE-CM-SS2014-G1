@@ -16,7 +16,7 @@ POST /donate/upload controllers.Donate.upload()
 
 # DB population actions
 GET /populate/categories controllers.PopulateDb.categories()
-GET /populate/transporttypes controllers.PopulateDb.transportTypes()
+GET /populate/transportTypes controllers.PopulateDb.transportTypes()
 
 GET /login controllers.Login.form()
 POST /login controllers.Login.login()

@@ -3,6 +3,9 @@
 html, body {
 	height: 100%;
 }
+body {
+	padding-top:50px;
+}
 .page-wrap {
 	min-height: 100%;
 	margin-bottom: -150px; /* equal to footer height */

@@ -1,6 +1,7 @@
-/* If you do not want to bother with SASS, simply put all your styles into the main.css file */
+
 @import "base/base";
 @import "base/layout";
 
+@import "components/main";
 @import "components/nav";
 @import "components/file-upload";
