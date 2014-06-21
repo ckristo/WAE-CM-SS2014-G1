@@ -45,15 +45,6 @@ public class Donate extends Controller {
 	
 	@Transactional(readOnly=true)
 	public static Result summary() {
-		// Get files
-//		System.out.println("Files:");
-//		for(String key : request().body().asFormUrlEncoded().keySet()) {
-//			if(key.startsWith("file[")) {
-//				System.out.println(key);
-//			}
-//		}
-//		System.out.println("------------");
-		
 		Form<Donor> filledDonorForm = donorForm.bindFromRequest("name", "email", "street", "phone", "zip", "city");
 		Form<Donation> filledDonationForm = donationForm.bindFromRequest("label", "pickUpDate", "description", "files", "number");
 		
@@ -142,7 +133,19 @@ public class Donate extends Controller {
 	}
 	
 	public static List<models.File> getFiles(DynamicForm dynamicForm) {
-		Integer numberOfFiles = new Integer(dynamicForm.get("numberOfFiles"));
+		// get number of files from request data
+		int numberOfFiles = 0;
+		String input_numberOfFiles = dynamicForm.get("numberOfFiles");
+		if (input_numberOfFiles != null) {
+			try {
+				numberOfFiles = Integer.parseInt(input_numberOfFiles);
+			}
+			catch (NumberFormatException e) {
+				// silently fail => assume zero files
+			}
+		}
+		
+		// create list of files
 		List<models.File> files = new ArrayList<models.File>();
 		for(int i = 0;i<numberOfFiles;i++) {
 			String filename = dynamicForm.field("file_" + i + "-filename").value();
