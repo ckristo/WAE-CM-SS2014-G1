@@ -12,7 +12,7 @@ import views.html.populate.*;
 
 public class PopulateDb extends Controller {
 	
-	static Category[] categories = new Category[] {
+	static final Category[] categories = new Category[] {
 		new Category("Bekleidung"),
 		new Category("Lebensmittel"),
 		new Category("Hygieneartikel"),
@@ -20,7 +20,7 @@ public class PopulateDb extends Controller {
 		new Category("Elektrogeräte"),
 	};
 	
-	static TransportType[] transportTypes = new TransportType[] {
+	static final TransportType[] transportTypes = new TransportType[] {
 		new TransportType("Ich liefere die Spende"),
 		new TransportType("Ich sende die Spende per Post"),
 		new TransportType("Die Spende soll abgeholt werden"),
@@ -34,7 +34,7 @@ public class PopulateDb extends Controller {
 		
 		// save categories to DB
 		for (Category c : categories) {
-			JPA.em().persist(c);
+			JPA.em().persist(new Category(c));
 		}
 
         return ok(index.render("Categories"));
@@ -48,7 +48,7 @@ public class PopulateDb extends Controller {
 				
 		// save transport types to DB
 		for (TransportType t : transportTypes) {
-			JPA.em().persist(t);
+			JPA.em().persist(new TransportType(t));
 		}
 		
         return ok(index.render("Transport Types"));
