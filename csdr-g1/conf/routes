@@ -24,6 +24,7 @@ GET /logout controllers.Login.logout()
 
 GET /donations controllers.DonationList.list(p:Int ?= 0)
 GET /donations/filter controllers.DonationList.filter()
+GET /donations/filter/reset controllers.DonationList.resetFilters()
 GET /donations/addCategory controllers.DonationList.addCategory()
 GET /donations/removeCategory/:categoryId controllers.DonationList.removeCategory(categoryId: String)
 GET /donations/needdonation/:donationId controllers.DonationList.needDonation(donationId: Int)
