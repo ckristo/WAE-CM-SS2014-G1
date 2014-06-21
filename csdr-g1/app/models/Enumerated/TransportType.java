@@ -18,6 +18,10 @@ public class TransportType extends EnumType {
 		super(name);
 	}
 	
+	public TransportType(TransportType t) {
+		super(t.getName());
+	}
+	
 	/**
 	 * Looks-up a transport type by id.
 	 * @param id the id of the transport type to lookup
@@ -52,5 +56,10 @@ public class TransportType extends EnumType {
 	    }
 	    
         return options;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("TransportType#%d (%s)", this.getId(), this.getName());
 	}
 }

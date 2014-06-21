@@ -21,6 +21,10 @@ public abstract class EnumType {
 	public EnumType(String name) {
 		this.name = name;
 	}
+	
+	public EnumType(EnumType et) {
+		this.name = et.getName();
+	}
 
 	public String getName() {
 		return name;
@@ -32,5 +36,10 @@ public abstract class EnumType {
 
 	public Integer getId() {
 		return id;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("EnumType#%d (%s)", id, name);
 	}
 }

@@ -9,6 +9,9 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import models.Donation;
@@ -37,6 +40,11 @@ public class Donate extends Controller {
 	 * form for all donation specific information.
 	 */
 	static Form<Donation> donationForm = Form.form(Donation.class);
+	
+	/**
+	 * logger instance
+	 */
+	static Logger logger = LoggerFactory.getLogger(Donate.class);
 	
 	@Transactional(readOnly=true)
 	public static Result form() {
@@ -122,7 +130,7 @@ public class Donate extends Controller {
 				jsonFile.put("filename", file.getFilename());
 				jsonFile.put("randomFilename", randomFilename);
 			} else {
-				System.out.println("Failed to move file '" + file.getFilename() + "' to '" + destPath + randomFilename + "'.");
+				logger.error("Failed to move file '" + file.getFilename() + "' to '" + destPath + randomFilename + "'.");
 				return badRequest();
 			}
 	    }
@@ -168,10 +176,10 @@ public class Donate extends Controller {
 			if(FileHelper.moveFile(src, destPath)) {
 				file.setDonation(donation);
 				JPA.em().persist(file);
-				
 				src.delete();
-			} else {
-				System.out.println("Failed to move file '" + file.getFilename() + "' to '" + destPath + file.getFilename() + "'.");
+			} 
+			else {
+				logger.error("Failed to move file '" + file.getFilename() + "' to '" + destPath + file.getFilename() + "'.");
 				return false;
 			}
 		}
@@ -318,7 +326,7 @@ public class Donate extends Controller {
 			
 			// Move file
 			try {
-				System.out.println("Moving file " + file.getFile().getCanonicalPath());
+				logger.debug("Moving file " + file.getFile().getCanonicalPath());
 				//@TODO: Implement a random filename generation strategy to avoid files with the same name being overridden (suggestion: /app/files/1/2/3/filename.ext, where the donation's id is 123)
 				//@TODO: Store the root file path (/vagrant/csdr-g1/app/files/) in a constant or as a config property for better maintainability
 				if(!FileHelper.moveFile(file.getFile(), "/vagrant/csdr-g1/app/files/" + file.getFilename())) {

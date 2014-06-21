@@ -20,6 +20,10 @@ public class Category extends EnumType {
 		super(name);
 	}
 	
+	public Category(Category c) {
+		super(c.getName());
+	}
+	
 	/**
 	 * Looks-up a category by id.
 	 * @param id the id of the category to lookup
@@ -62,6 +66,11 @@ public class Category extends EnumType {
 	    }
 	    
         return options;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("Category#%d (%s)", this.getId(), this.getName());
 	}
 	
 }

@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.TypedQuery;
 
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
@@ -168,4 +169,13 @@ public class Donation {
         
         return new DonationPage(data, total, page, pageSize);
     }
+    
+    /**
+	 * Returns a list of all donations saved in the database.
+	 * @return a list of all donations saved in the database.
+	 */
+	public static List<Donation> findAll() {
+		TypedQuery<Donation> query = JPA.em().createQuery("SELECT d FROM Donation d", Donation.class);
+	    return query.getResultList();
+	}
 }
