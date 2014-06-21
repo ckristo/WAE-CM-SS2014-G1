@@ -24,7 +24,7 @@ public class DonationList extends Controller {
 
 	private static Map<String, String> categoryMap = new LinkedHashMap<>();
 	private static String filter = "";
-
+	
 	private static final int PAGE_SIZE = 4;
 
 	@Security.Authenticated(Secured.class)

@@ -93,9 +93,13 @@
 		    		<div class="panel-body">
 			    		<div class="row">
 			    			<div class="col-xs-12 col-lg-3 col-md-3 list-image">
+			    				@if(donation.getFiles.size > 0) {
+		    					<img alt="@donation.getFiles.get(0).getFilename" src="@donation.getFiles.get(0).getThumbnailPath" class="img-thumbnail img-responsive">
+		    					} else {
 		    					<img alt="placeholder" src="@routes.Assets.at("images/default-placeholder.png")" class="img-thumbnail img-responsive">
+		    					}
 		    				</div>
-		    				<div class="col-xs-12 col-lg-6 col-md-6 list-description">
+		    				<div class="col-xs-12 col-lg-8 col-md-8 list-description">
 		    					<div class="preformatted">@donation.getDescription()</div>
 		    				</div>
 			    		</div>

@@ -1,5 +1,7 @@
 package models;
 
+import controllers.routes;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -64,5 +66,20 @@ public class File {
 		this.is_first = is_first;
 	}
 	
+	/**
+	 * Returns the path to the image file.
+	 * @return the path to the image.
+	 */
+	public String getPath() {
+		return routes.Assets.at("files/"+donation.getId()+"/"+tmpFilename).url();
+	}
 	
+	/**
+	 * Returns the path to the thumbnail image file.
+	 * @return the path to the thumbnail image.
+	 */
+	public String getThumbnailPath() {
+		//TODO: use generated thumbnail path -- currently points to full image
+		return routes.Assets.at("files/"+donation.getId()+"/"+tmpFilename).url();
+	}
 }
