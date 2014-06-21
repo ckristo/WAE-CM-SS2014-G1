@@ -2,10 +2,6 @@
 
 # Sets up our Vagrant VM
 # ----------------------
-# NOTICE: 
-# This script doesn't work as Vagrant provision script because it needs 
-# active user input for Oracle Java installation.
-#
 
 # fix perl locale warning
 cat /etc/environment | grep 'LC_ALL'
