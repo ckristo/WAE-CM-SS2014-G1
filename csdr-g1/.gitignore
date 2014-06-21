@@ -18,5 +18,5 @@ tmp
 .cache
 *.log
 *~
+.sass-cache/
 public/files
-

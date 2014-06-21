@@ -8,7 +8,11 @@
 #
 
 # fix perl locale warning
-echo 'LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/environment > /dev/null
+cat /etc/environment | grep 'LC_ALL'
+if [ "$?" -ne 0 ]
+then
+	echo 'LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/environment > /dev/null
+fi
 
 # install utility programs
 echo
@@ -17,7 +21,7 @@ echo
 sleep 1
 
 sudo apt-get update -y \
-&& sudo apt-get install -y unzip python-software-properties
+&& sudo apt-get install -y unzip python-software-properties dos2unix git
 
 if [ "$?" -ne 0 ]
 then
@@ -56,6 +60,43 @@ sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password pas
 && sudo update-rc.d mysql defaults \
 && echo "CREATE DATABASE waecm_2014 CHARACTER SET utf8 COLLATE utf8_general_ci;" | mysql -uroot -pwaecm_2014
 
+if [ "$?" -ne 0 ]
+then
+	echo "failed."
+	exit 1;
+fi
+
+# install NodeJS + npm + gulp.js
+echo
+echo "* Installing NodeJS + npm + gulp.js ..."
+echo
+sleep 1
+
+sudo apt-get install -y nodejs npm \
+&& sudo ln -s /usr/bin/nodejs /usr/bin/node \
+&& sudo npm install -g gulp
+
+if [ "$?" -ne 0 ]
+then
+	echo "failed."
+	exit 1;
+fi
+
+# install Ruby + SASS gem
+echo
+echo "* Installing Ruby + SASS ..."
+echo
+sleep 1
+
+sudo apt-get install -y ruby-full \
+&& sudo gem install sass rb-inotify
+
+if [ "$?" -ne 0 ]
+then
+	echo "failed."
+	exit 1;
+fi
+
 # download and extract Play framework
 echo
 echo "* Installing Play Framework ..."
@@ -93,6 +134,21 @@ then
 	echo >> .bashrc
 	echo -e "export PATH=\$PATH:/vagrant/play-$PLAY_VERSION:/vagrant/play-$PLAY_VERSION/framework" >> .bashrc
 	. .bashrc
+fi
+
+# install npm dependencies for our project
+echo
+echo "* Installing NPM dependencies for project ..."
+echo
+sleep 1
+
+cd /vagrant/csdr-g1
+npm update
+
+if [ "$?" -ne 0 ]
+then
+	echo "failed."
+	exit 1;
 fi
 
 echo
