@@ -1,4 +1,5 @@
 import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.running;
 import static play.test.Helpers.start;
 
 import javax.persistence.EntityManager;
@@ -6,9 +7,8 @@ import javax.persistence.EntityManager;
 import org.junit.After;
 import org.junit.Before;
 
+import play.api.test.Helpers;
 import play.db.jpa.JPA;
-import play.db.jpa.JPAPlugin;
-import scala.Option;
 import play.test.FakeApplication;
 import models.Enumerated.Category;
 import models.Enumerated.TransportType;
@@ -52,26 +52,23 @@ public abstract class AbstractTest {
 	@Before
 	public void setUp() {
 		// init fake application
-		fakeApplication = fakeApplication(); 
-		start(fakeApplication); 
+		fakeApplication = fakeApplication();
+        start(fakeApplication);
 		
-		// init JPA
-		Option<JPAPlugin> jpaPlugin = fakeApplication.getWrappedApplication().plugin(JPAPlugin.class);
-		entityManager = jpaPlugin.get().em("test");
-		JPA.bindForCurrentThread(entityManager);
-		
-		// put test data into mem db
-		for (Category c : categories) {
-			entityManager.persist(c);
-		}
-		for (TransportType t : transportTypes) {
-			entityManager.persist(t);
-		}
+        // insert test data into test DB
+		JPA.withTransaction(new play.libs.F.Callback0() {
+            public void invoke() {
+            	for (Category c : categories) {
+        			JPA.em().persist(c);
+        		}
+        		for (TransportType t : transportTypes) {
+        			JPA.em().persist(t);
+        		}
+            }
+        });
 	}
 	
 	@After
 	public void tearDown() {
-		JPA.bindForCurrentThread(null);
-		entityManager.close();
 	}
 }
