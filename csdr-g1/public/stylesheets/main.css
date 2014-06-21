@@ -78,9 +78,3 @@ body
 	margin: 0;
 	padding: 0;
 }
-
-/* donation list */
-#donationList_selectedCategories
-{
-	margin-bottom:0.5em;
-}
