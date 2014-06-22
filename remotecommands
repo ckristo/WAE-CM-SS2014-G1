@@ -1,14 +1,53 @@
 #!/bin/sh
-tmpdir="/tmp/copyproduction"
-proddir="/home/vagrant/production"
 
+#directory for checkout of the prod-banch
+tmpdir="/tmp/copyproduction"
+#directory to deploy to (has to exist already)
+proddir="/home/vagrant/production"
+#link to repository
+repository="https://github.com/ckristo/WAE-CM-SS2014-G1.git"
+#path of the relevant parts inside of the repository
+relevantpath="WAE-CM-SS2014-G1/csdr-g1"
+#name of production branch in git
+prodbranch="prod"
+#path to play script
+playpath="/home/vagrant/play-2.2.3/play"
+#expression which uniquely identifies the process to kill (server process)
+killexpr="java.*csdr-g1"
+
+#delete old tmpdir
 rm -rf $tmpdir
+#recreate it
 mkdir $tmpdir
 cd $tmpdir
-git clone -b prod https://github.com/ckristo/WAE-CM-SS2014-G1.git
-pkill -f 'java.*csdr-g1'
+echo "Cloning branch \"$prodbranch\" from \"$repository\" into a temporary directory..." >&2
+#clone prod-branch
+git clone -b $prodbranch $repository > /dev/null
+
+#check if git clone failed
+OUT=$?
+if [ $OUT -ne 0 ];then
+	echo "cloning failed" >&2
+	exit -1
+fi
+
+echo "done" >&2
+echo "killing server..." >&2
+#kill old instance of the server
+pkill -f \'$killexpr\' >&2
+echo "done" >&2
+#remove the content of the production directory
 rm -rf $proddir/*
-cp -r $tmpdir/WAE-CM-SS2014-G1/csdr-g1/* $proddir
+echo "copying to production directory..." >&2
+#copy contents of temp dir to prod dir
+cp -r $tmpdir/$relevantpath/* $proddir
+echo "done" >&2
 cd $proddir
-/home/vagrant/play-2.2.3/play clean compile stage
+echo "compiling sources..." >&2
+#clean, compile and stage the current implementation
+$playpath clean compile stage > /dev/null
+echo "done" >&2
+echo "restarting server..." >&2
+#restart server
 nohup target/universal/stage/bin/csdr-g1 > csdr.out 2> csdr.err < /dev/null &
+echo "done" >&2
