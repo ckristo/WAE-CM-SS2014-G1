@@ -1,5 +1,9 @@
 #!/bin/sh
+
+#server IP/hostname
 server="localhost"
+#username of deploy-user on the server
 user="vagrant"
 
-ssh "$user@$server" < remotecommands
+#the script file remotecommands gets executed on the server
+ssh "$user@$server" < remotecommands > /dev/null
