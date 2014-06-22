@@ -1,0 +1,14 @@
+#!/bin/sh
+tmpdir="/tmp/copyproduction"
+proddir="/home/vagrant/production"
+
+rm -rf $tmpdir
+mkdir $tmpdir
+cd $tmpdir
+git clone -b prod https://github.com/ckristo/WAE-CM-SS2014-G1.git
+pkill -f 'java.*csdr-g1'
+rm -rf $proddir/*
+cp -r $tmpdir/WAE-CM-SS2014-G1/csdr-g1/* $proddir
+cd $proddir
+/home/vagrant/play-2.2.3/play clean compile stage
+nohup target/universal/stage/bin/csdr-g1 > csdr.out 2> csdr.err < /dev/null &
